@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\fondotech.jpg" />
+    <None Remove="Images\loglock.png" />
+    <None Remove="Images\logmail.png" />
+    <None Remove="Images\logowpf128.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpiWpf.Data\SpiWpf.Data.csproj" />
+    <ProjectReference Include="..\SpiWpf.Entities\SpiWpf.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\fondotech.jpg" />
+    <Resource Include="Images\loglock.png" />
+    <Resource Include="Images\logmail.png" />
+    <Resource Include="Images\logowpf128.png" />
+  </ItemGroup>
+
+</Project>
