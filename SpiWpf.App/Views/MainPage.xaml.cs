@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpiWpf.Wpf.ViewModels;
+using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Interop;
 
 namespace SpiWpf.Wpf.Views
 {
@@ -19,9 +10,30 @@ namespace SpiWpf.Wpf.Views
     /// </summary>
     public partial class MainPage : Window
     {
+        private MainViewModel _viewModel { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
+            //para maximizado de la pantalla en cualquier monitor
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            _viewModel = new MainViewModel();
+            DataContext = _viewModel;
+        }
+
+        //estos metodos son para maximizar la pantalla en cualquier ventana
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr bWnd, int wMsg, int wParam, int lParam);
+
+        private void pnlControlBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            WindowInteropHelper helper = new WindowInteropHelper(this);
+            SendMessage(helper.Handle, 161, 2, 0);
+        }
+
+        private void pnlControlBar_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
     }
 }
