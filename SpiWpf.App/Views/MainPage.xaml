@@ -131,7 +131,62 @@
                                 MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
                                 MouseEnter="pnlControlBar_MouseEnter">
 
+                        <Button x:Name="btnClose" Style="{StaticResource controlButton}" Tag="{StaticResource color4}" Click="btnClose_Click">
+                            <fa:IconImage Icon="Xmark" Width="14" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+                        <Button x:Name="btnMiximize" Style="{StaticResource controlButton}" Tag="{StaticResource color6}" Click="btnMiximize_Click">
+                            <fa:IconImage Icon="Square" Width="14" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+                        <Button x:Name="btnMinimize" Style="{StaticResource controlButton}" Tag="{StaticResource color8}" Click="btnMinimize_Click">
+                            <fa:IconImage Icon="WindowMinimize" Width="14" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+
                     </StackPanel>
+                    
+                    <!-- Header / Caption-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <!--Caption-->
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <fa:IconImage Icon="Home" Height="20" Width="20" Foreground="{StaticResource titleColor2}" Margin="35,0,10,0"/>
+                            
+                            <TextBlock Text="DashBoard" Foreground="{StaticResource titleColor2}" FontSize="16" FontFamily="Montserrat" FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <!--User Options-->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <Button Style="{StaticResource icoinButton}" Tag="{StaticResource color1}">
+                                <fa:IconImage Icon="AngleDown" Height="12" Width="12" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+                            <TextBlock Text="Nomre Logueado" Foreground="{StaticResource titleColor2}" FontFamily="Montserrat" FontSize="12" VerticalAlignment="Center"/>
+                            <Ellipse Height="35" Width="35" Stroke="{StaticResource color2}" StrokeThickness="2" Margin="10,0,10,0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/logowpf128.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <Button Style="{StaticResource icoinButton}" Tag="{StaticResource color3}">
+                                <fa:IconImage Icon="Clock" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+                            <Button Style="{StaticResource icoinButton}" Tag="{StaticResource color4}">
+                                <fa:IconImage Icon="Envelope" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+                            <Button Style="{StaticResource icoinButton}" Tag="{StaticResource color5}">
+                                <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+                        </StackPanel>
+                       
+                    </Grid>
+                    
+                    <!--Content Section / Child Views-->
+                    <ContentControl Content="" 
+                                    Grid.Row="2" Margin="25"/>
+                    
                 </Grid>
                            
             </Border>
