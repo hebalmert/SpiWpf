@@ -14,6 +14,15 @@
         Background="Transparent"
         AllowsTransparency="True">
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+            <local:HomePage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
+            <local:ClientsPage/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Border CornerRadius="10" BorderThickness="1">
         <Border.BorderBrush>
             <LinearGradientBrush>
@@ -49,7 +58,8 @@
                     </StackPanel>
                     
                     <!--Menu Button-->
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}" IsChecked="True">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color1}" IsChecked="True"
+                                 Command="{Binding LoadHomeViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
@@ -73,7 +83,7 @@
                             <TextBlock Text="Nodos" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color2}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color2}" IsChecked="False" Command="{Binding LoadClientsViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="IdCard" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Clientes" Style="{StaticResource menuButtonText}"/>
@@ -184,7 +194,7 @@
                     </Grid>
                     
                     <!--Content Section / Child Views-->
-                    <ContentControl Content="" 
+                    <ContentControl Content="{Binding CurrentChildView}" 
                                     Grid.Row="2" Margin="25"/>
                     
                 </Grid>
