@@ -22,99 +22,101 @@
     <Window.Visibility>
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
-    
+
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="/Images/fondotech.jpg" />
         </Border.Background>
-        
-        <Border CornerRadius="10" BorderThickness="1" Opacity="0.95">
-            <Border.BorderBrush>
-                <LinearGradientBrush>
-                    <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
-                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.5"/>
-                    <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="1,2" EndPoint="1,0">
-                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
-                    <GradientStop Color="Transparent" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
+        <Grid>
+            <Border CornerRadius="10" BorderThickness="1" Opacity="0.95">
+                <Border.BorderBrush>
+                    <LinearGradientBrush>
+                        <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.5"/>
+                        <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,2" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="5"/>
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="Acceso SPI - Log In" Foreground="WhiteSmoke" FontSize="12" FontStretch="Condensed"
+                    <TextBlock Grid.Column="0" Text="Acceso SPI - Log In" Foreground="WhiteSmoke" FontSize="12" FontStretch="Condensed"
                        VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <Button Grid.Column="1" x:Name="btnMinimize"  BorderThickness="0" Content="-" Foreground="White"
+                    <Button Grid.Column="1" x:Name="btnMinimize"  BorderThickness="0" Content="-" Foreground="White"
                         Cursor="Hand" Click="btnMinimize_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="DarkBlue"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#0B37B6"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="20" Height="20"
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="DarkBlue"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#0B37B6"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="20" Height="20"
                                         CornerRadius="9"
                                         Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Grid.Column="2" x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Grid.Column="2" x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
                         Cursor="Hand" Click="btnClose_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="DarkGreen"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="ForestGreen"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="20" Height="20"
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="DarkGreen"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="ForestGreen"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="20" Height="20"
                                         CornerRadius="9"
                                         Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-                <StackPanel Width="250" Grid.Row="2" Orientation="Vertical" Margin="0,25,0,0">
-                    <Image Source="/Images/logowpf128.png" Width="100" Height="100"/>
+                    <StackPanel Width="250" Grid.Row="2" Orientation="Vertical" Margin="0,25,0,0">
 
-                    <TextBlock Text="Nexxtplanet"
+
+                        <Image Source="/Images/logowpf128.png" Width="100" Height="100"/>
+
+                        <TextBlock Text="Nexxtplanet"
                                Foreground="White"
                                FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="Sistema Proveedores Internet - SPI"
+                        <TextBlock Text="Sistema Proveedores Internet - SPI"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -122,14 +124,14 @@
                                TextWrapping="Wrap"
                                TextAlignment="Center"
                                Margin="0,5,0,0"/>
-                    
-                    <TextBlock Text="Username"
+
+                        <TextBlock Text="Username"
                                Foreground="White"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
                                Margin="0,35,0,0"/>
-                    <TextBox x:Name="txtUser"
+                        <TextBox x:Name="txtUser"
                              Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="13"
                              FontWeight="Medium"
@@ -143,26 +145,26 @@
                              Margin="0,5,0,0"
                              Padding="30,0,0,0">
 
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/logmail.png"
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Images/logmail.png"
                                         Stretch="Uniform"
                                         AlignmentX="Left"/>
-                        </TextBox.Background>
-                    </TextBox>
-                    <TextBlock Text="Password"
+                            </TextBox.Background>
+                        </TextBox>
+                        <TextBlock Text="Password"
                                Foreground="White"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"                             
                                Margin="0,15,0,0"/>
 
-                    <CustomControls:BindablePasswordBox 
+                        <CustomControls:BindablePasswordBox 
                         Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                         Height="28" Margin="0,5,0,0">
-                        
-                    </CustomControls:BindablePasswordBox>
 
-                    <TextBlock Text="{Binding ErrorMessage}"
+                        </CustomControls:BindablePasswordBox>
+
+                        <TextBlock Text="{Binding ErrorMessage}"
                                Foreground="Red"
                                FontSize="12"
                                FontWeight="Medium"
@@ -170,7 +172,7 @@
                                Margin="0,15,0,0"
                                TextWrapping="Wrap"/>
 
-                    <Button x:Name="btnLogin"                          
+                        <Button x:Name="btnLogin"                          
                             BorderThickness="0"
                             Content="LOG IN"
                             Foreground="White"
@@ -179,47 +181,55 @@
                             Cursor="Hand"                           
                             Margin="0,30,0,0"
                             Command="{Binding btnLoginCommand}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="DarkBlue"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#0B37B6"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="40"
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="DarkBlue"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#0B37B6"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="150" Height="40"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
+                                        <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <StackPanel Orientation="Horizontal"
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
-                        <TextBlock Text="Forgot Password?"
+                            <TextBlock Text="Forgot Password?"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"/>
-                        <TextBlock Text="Reset"
+                            <TextBlock Text="Reset"
                                Foreground="White"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Cursor="Hand"
                                Margin="8,0,0,0"/>
+                        </StackPanel>
+
+
                     </StackPanel>
-                </StackPanel>
+                </Grid>
 
+            </Border>
+
+            <!-- Superposición del ProgressBar -->
+            <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
-
-        </Border>
+        </Grid>
     </Border>
 </Window>

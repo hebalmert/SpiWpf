@@ -14,108 +14,119 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </ContentControl.Resources>
 
+
     <Border Background="WhiteSmoke" CornerRadius="5" BorderThickness="2">
         <Border.BorderBrush>
             <SolidColorBrush Color="DarkGray"/>
-
         </Border.BorderBrush>
-
-        <Grid Margin="5 10 5 10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="393*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" Margin="0,0,0,10" Grid.RowSpan="2">
+        
+        <Grid>
+            <Grid Margin="5 10 5 10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="393*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-                <!--Page Title-->
-                <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
+                <Grid Grid.Row="0" Margin="0,0,0,10" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Page Title-->
+                    <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
                       Text="Clientes" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
 
-                        <Grid Width="300" VerticalAlignment="Center">
-                            <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                            <Grid Width="300" VerticalAlignment="Center">
+                                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
                            Panel.ZIndex="1" Text="Search here ..."
                            Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
 
-                            <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
+                                <TextBox Name="textBoxSearch" TextChanged="textBoxSearch_TextChanged" Style="{StaticResource searchTextbox}"/>
 
-                            <fa:IconImage Icon="Search" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
-                        </Grid>
-                    </StackPanel>
+                                <fa:IconImage Icon="Search" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Search Textbox-->
+
+
+                    <!--Add Button-->
+                    <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Add"  Margin="0 1 8 0" Width="11" Height="11"/>
+                            <TextBlock Text="Nuevo Servidor"/>
+                        </StackPanel>
+                    </Button>
+
                 </Grid>
 
-                <!--Search Textbox-->
+                <!--Seprator-->
+                <Separator Height="1" Background="Black" Margin="0,57,0,10" Grid.RowSpan="2"/>
 
+                <!--Members Data Grid-->
 
-                <!--Add Button-->
-                <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="Add"  Margin="0 1 8 0" Width="11" Height="11"/>
-                        <TextBlock Text="Nuevo Servidor"/>
-                    </StackPanel>
-                </Button>
-
-            </Grid>
-
-            <!--Seprator-->
-            <Separator Height="1" Background="Black" Margin="0,57,0,10" Grid.RowSpan="2"/>
-
-            <!--Members Data Grid-->
-
-            <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding ServerAPILst}" Margin="0,10,0,0">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Servidor" IsReadOnly="True" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="8" Height="8" CornerRadius="50" Margin="0 0 10 0" Background="DarkOliveGreen">
-                                        <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                    </Border>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Servidor" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="8" Height="8" CornerRadius="50" Margin="0 0 10 0" Background="DarkOliveGreen">
+                                            <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        </Border>
 
-                                    <TextBlock Text="{Binding ServerName}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Documento" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Telefono" Binding="{Binding MarkModelo}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Correo" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
-                    <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}">
-                                        <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                    <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
-                                        <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                                        <TextBlock Text="{Binding ServerName}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Documento" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Telefono" Binding="{Binding MarkModelo}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Correo" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.ConectMkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ServerId}">
+                                            <fa:IconImage Icon="Server" Style="{StaticResource gridButtonIconActive}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.PingMKCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ServerId}">
+                                            <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
+                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
+                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
 
+            <!-- Superposición del ProgressBar -->
+            <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
     </Border>
-
 
 </UserControl>

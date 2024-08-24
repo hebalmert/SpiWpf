@@ -35,7 +35,6 @@ namespace SpiWpf.Wpf.Views
         {
             await _viewModel.LoadSuspended();
             this.UpdateLayout();
-
         }
 
         private async void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)

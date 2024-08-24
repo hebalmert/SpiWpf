@@ -25,5 +25,14 @@ namespace SpiWpf.Wpf.Views
             this.UpdateLayout();
 
         }
+
+        private async void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var texto = sender as TextBox;
+            string txtBuscar = texto!.Text;
+            if (txtBuscar == null && txtBuscar!.Length == 0) { return; }
+
+            await _viewModel.SearchTxt(txtBuscar!);
+        }
     }
 }

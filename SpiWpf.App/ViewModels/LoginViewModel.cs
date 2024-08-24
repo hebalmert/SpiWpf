@@ -45,6 +45,13 @@ namespace SpiWpf.Wpf.ViewModels
             set { SetProperty(ref _errorMessage!, value); }
         }
 
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get { return _IsLoading; }
+            set { SetProperty(ref _IsLoading, value); }
+        }
+
         private static int t;
 
         public LoginViewModel()
@@ -55,8 +62,11 @@ namespace SpiWpf.Wpf.ViewModels
         [RelayCommand]
         public async Task btnLogin()
         {
+            IsLoading = true;
+
             if (string.IsNullOrEmpty(Username) || Password == null)
             {
+                IsLoading =false;
                 ErrorMessage = "Usuario y Clave son Obligatorios";
                 return;
             }
@@ -74,11 +84,13 @@ namespace SpiWpf.Wpf.ViewModels
                 t += 1;
                 if (t >= 3)
                 {
+                    IsLoading = false;
                     ErrorMessage = "Ha llegado al numero maximo de intentos";
                     Application.Current.Shutdown();
                 }
                 else
                 {
+                    IsLoading = false;
                     ErrorMessage = "Usuario o Clave Incorrecto";
                     return;
                 }
@@ -99,7 +111,7 @@ namespace SpiWpf.Wpf.ViewModels
             Preferences.Token = _token.Token;
             Preferences.DateToken = _token.Expiration.ToString("yyyy-MM-dd HH:mm:ss");
             IsViewVisible = false;
-
+            IsLoading = false;
             return;
 
         }

@@ -11,34 +11,40 @@ namespace SpiWpf.Wpf.ViewModels
     {
         public ObservableCollection<SuspendedAPI>? SuspendedAPILst { get; set; }
 
-        private string? _searchText;
-        public string? SearchText
+        private List<SuspendedAPI>? ListaSuspended;
+
+        private bool _IsLoading;
+        public bool IsLoading
         {
-            get => _searchText;
-            set { SetProperty(ref _searchText!, value); }
+            get { return _IsLoading; }
+            set { SetProperty(ref _IsLoading, value); }
         }
 
         public SuspendedViewModel()
         {
             SuspendedAPILst = new ObservableCollection<SuspendedAPI>();
+            ListaSuspended = new List<SuspendedAPI>();
         }
 
 
 
         public async Task LoadSuspended()
         {
+            IsLoading = true;
+
             SuspendedAPILst!.Clear();
 
             var responseHttp = await Repository.Get<List<SuspendedAPI>>("/api/suspended/suspendedList");
             if (responseHttp.Error)
             {
+                IsLoading = false;
                 var msgerror = await responseHttp.GetErrorMessageAsync();
                 MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             //Convertimos el List a un ObservableCollection
-            List<SuspendedAPI> ListaSuspended = responseHttp.Response;
+            ListaSuspended = responseHttp.Response;
             if (ListaSuspended != null || ListaSuspended!.Count > 0)
             {
                 foreach (var item in ListaSuspended)
@@ -46,6 +52,8 @@ namespace SpiWpf.Wpf.ViewModels
                     SuspendedAPILst!.Add(item);
                 }
             }
+
+            IsLoading = false;
         }
 
         public async Task SearchTxt(string txtbuscar)
@@ -56,11 +64,11 @@ namespace SpiWpf.Wpf.ViewModels
             }
             else
             {
-                var ListaSuspended = SuspendedAPILst!.Where(x => x.NombreCliente!.ToLower().Contains(txtbuscar.ToLower())).ToList();
+                var Lista = ListaSuspended!.Where(x => x.NombreCliente!.ToLower().Contains(txtbuscar.ToLower())).ToList();
                 SuspendedAPILst?.Clear();
-                if (ListaSuspended != null || ListaSuspended!.Count > 0)
+                if (Lista != null || Lista!.Count > 0)
                 {
-                    foreach (var item in ListaSuspended)
+                    foreach (var item in Lista)
                     {
                         SuspendedAPILst!.Add(item);
                     }
