@@ -7,7 +7,7 @@ namespace SpiWpf.Wpf.ViewModels
     public partial class MainViewModel : ObservableObject
     {
 
-        private ObservableObject _CurrentChildView;
+        private ObservableObject? _CurrentChildView;
 
         public ObservableObject? CurrentChildView
         {
@@ -21,15 +21,39 @@ namespace SpiWpf.Wpf.ViewModels
         }
 
         [RelayCommand]
-        public async Task LoadHomeView()
+        public void LoadHomeView()
         {
             CurrentChildView = new HomeViewModel();
         }
 
         [RelayCommand]
-        public async Task LoadClientsView()
+        public void LoadClientsView()
         {
             CurrentChildView = new ClientsViewModel();
+        }
+
+        [RelayCommand]
+        public void LoadServersView()
+        {
+            CurrentChildView = new ServerViewModel();
+        }
+
+        [RelayCommand]
+        public void LoadPlansView()
+        {
+            CurrentChildView = new PlanesViewModel();
+        }
+
+        [RelayCommand]
+        public void LoadNodesView()
+        {
+            CurrentChildView = new NodeViewModel();
+        }
+
+        [RelayCommand]
+        public void LoadSuspendedView()
+        {
+            CurrentChildView = new SuspendedViewModel();
         }
     }
 }

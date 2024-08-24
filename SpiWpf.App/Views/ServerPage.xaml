@@ -1,13 +1,12 @@
-﻿<UserControl x:Class="SpiWpf.Wpf.Views.ClientsPage"
+﻿<UserControl x:Class="SpiWpf.Wpf.Views.ServerPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SpiWpf.Wpf.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels" 
-             d:DataContext="{d:DesignInstance Type=vm:ClientsViewModel}"
-             Background="Transparent"
+             xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:ServerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -67,7 +66,7 @@
                 <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="Add"  Margin="0 1 8 0" Width="11" Height="11"/>
-                        <TextBlock Text="Nuevo Cliente"/>
+                        <TextBlock Text="Nuevo Servidor"/>
                     </StackPanel>
                 </Button>
 
@@ -80,9 +79,9 @@
 
             <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
-                          ItemsSource="{Binding ClientAPILst}" Margin="0,10,0,0">
+                          ItemsSource="{Binding ServerAPILst}" Margin="0,10,0,0">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Cliente" IsReadOnly="True" Width="*">
+                    <DataGridTemplateColumn Header="Servidor" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -90,14 +89,14 @@
                                         <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
                                     </Border>
 
-                                    <TextBlock Text="{Binding FullName}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ServerName}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Documento" Binding="{Binding Document}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Telefono" Binding="{Binding PhoneNumber}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Correo" Binding="{Binding UserName}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Documento" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Telefono" Binding="{Binding MarkModelo}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Correo" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -117,5 +116,6 @@
 
         </Grid>
     </Border>
+
 
 </UserControl>

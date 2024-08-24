@@ -11,6 +11,7 @@
         Title="MainPage" Height="700" Width="1300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True">
 
@@ -20,6 +21,18 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
             <local:ClientsPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ServerViewModel}">
+            <local:ServerPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PlanesViewModel}">
+            <local:PlanesPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NodeViewModel}">
+            <local:NodePage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SuspendedViewModel}">
+            <local:SuspendedPage/>
         </DataTemplate>
     </Window.Resources>
 
@@ -65,19 +78,19 @@
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color3}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color3}" IsChecked="False" Command="{Binding LoadPlansViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="List" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Planes" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False" Command="{Binding LoadServersViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Server" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Servidores" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color5}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color5}" IsChecked="False" Command="{Binding LoadNodesViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Timeline" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Nodos" Style="{StaticResource menuButtonText}"/>
@@ -95,7 +108,7 @@
                             <TextBlock Text="Contratos" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False" Command="{Binding LoadSuspendedViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UsersRays" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Suspendidos" Style="{StaticResource menuButtonText}"/>

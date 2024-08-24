@@ -139,8 +139,8 @@ namespace SpiWpf.Data
             string token = Preferences.Token!;
             if (!string.IsNullOrEmpty(token))
             {
-                string DateToken = Preferences.Token!;
-                DateTime fechaToken = DateTime.Parse(DateToken);
+                string _DateToken = Preferences.DateToken!;
+                DateTime fechaToken = DateTime.Parse(_DateToken);
                 var dateCurrent = DateTime.Now;
                 if (fechaToken >= dateCurrent)
                 {

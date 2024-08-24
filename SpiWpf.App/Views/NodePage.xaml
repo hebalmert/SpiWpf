@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SpiWpf.Wpf.Views.ClientsPage"
+﻿<UserControl x:Class="SpiWpf.Wpf.Views.NodePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,9 @@
              xmlns:local="clr-namespace:SpiWpf.Wpf.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels" 
-             d:DataContext="{d:DesignInstance Type=vm:ClientsViewModel}"
-             Background="Transparent"
+             d:DataContext="{d:DesignInstance Type=vm:NodeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
     <ContentControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </ContentControl.Resources>
@@ -46,12 +44,12 @@
                 <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
-                      Text="Clientes" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
+                 Text="Clientes" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
 
                         <Grid Width="300" VerticalAlignment="Center">
                             <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search here ..."
-                           Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
+                      Panel.ZIndex="1" Text="Search here ..."
+                      Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
 
                             <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}"/>
 
@@ -79,10 +77,10 @@
             <!--Members Data Grid-->
 
             <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
-                          ItemsSource="{Binding ClientAPILst}" Margin="0,10,0,0">
+                 CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
+                     ItemsSource="{Binding NodeAPILst}" Margin="0,10,0,0">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Cliente" IsReadOnly="True" Width="*">
+                    <DataGridTemplateColumn Header="Nodo" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -90,14 +88,14 @@
                                         <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
                                     </Border>
 
-                                    <TextBlock Text="{Binding FullName}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding NodesName}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Documento" Binding="{Binding Document}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Telefono" Binding="{Binding PhoneNumber}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Correo" Binding="{Binding UserName}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="IP" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Modelo" Binding="{Binding MarkModel}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Zona" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -117,5 +115,4 @@
 
         </Grid>
     </Border>
-
 </UserControl>
