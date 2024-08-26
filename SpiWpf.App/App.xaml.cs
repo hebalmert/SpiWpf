@@ -9,6 +9,8 @@ namespace SpiWpf.App
     /// </summary>
     public partial class App : Application
     {
+        public static MainPage? MainWindowInstance { get; private set; }
+
         public App()
         {
             InitializeComponent();
@@ -19,12 +21,12 @@ namespace SpiWpf.App
         {
             var LoginPage = new LoginPage();
             LoginPage.Show();
-            LoginPage.IsVisibleChanged += (s, ev) => 
+            LoginPage.IsVisibleChanged += (s, ev) =>
             {
                 if (LoginPage.IsVisible == false && LoginPage.IsLoaded)
-                { 
-                    var mainview = new MainPage();
-                    mainview.Show();    
+                {
+                    MainWindowInstance = new MainPage();
+                    MainWindowInstance.Show();
                     LoginPage.Close();
                 }
             };

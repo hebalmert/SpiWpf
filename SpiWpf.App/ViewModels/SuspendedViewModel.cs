@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Data;
 using SpiWpf.Entities.Models;
 using SpiWpf.Wpf.Helpers;
+using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
 using System.Net.NetworkInformation;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SpiWpf.Wpf.ViewModels
 {
@@ -22,10 +24,21 @@ namespace SpiWpf.Wpf.ViewModels
             set { SetProperty(ref _IsLoading, value); }
         }
 
+        //private MainViewModel _mainpage {  get; set; }
+
         public SuspendedViewModel()
         {
             SuspendedAPILst = new ObservableCollection<SuspendedAPI>();
             ListaSuspended = new List<SuspendedAPI>();
+            //_mainpage = new MainViewModel();
+        }
+
+        [RelayCommand]
+        public void SuspendedNew()
+        {
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadSuspendedNewView();
         }
 
 
@@ -141,11 +154,30 @@ namespace SpiWpf.Wpf.ViewModels
                 MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-           
+
             await LoadSuspended();
 
             IsLoading = false;
             MessageBox.Show($"El Cliente se ha Activado con Exitro", "Confirmacion Exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        public static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            // Traverse the visual tree
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+            while (parentObject != null)
+            {
+                if (parentObject is T parent)
+                {
+                    return parent;
+                }
+
+                parentObject = VisualTreeHelper.GetParent(parentObject);
+            }
+
+            return null!;
         }
     }
 }

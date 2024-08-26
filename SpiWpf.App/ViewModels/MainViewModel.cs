@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SpiWpf.Wpf.Views;
+using System.Runtime.Serialization.DataContracts;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SpiWpf.Wpf.ViewModels
 {
@@ -17,7 +19,7 @@ namespace SpiWpf.Wpf.ViewModels
 
         public MainViewModel()
         {
-            
+
         }
 
         [RelayCommand]
@@ -55,5 +57,18 @@ namespace SpiWpf.Wpf.ViewModels
         {
             CurrentChildView = new SuspendedViewModel();
         }
+
+        [RelayCommand]
+        public void LoadSuspensionCliente()
+        {
+            CurrentChildView = null;
+        }
+
+        public void LoadSuspendedNewView()
+        {
+            CurrentChildView = null;
+            CurrentChildView = new SuspendedNewViewModel();
+        }
+
     }
 }

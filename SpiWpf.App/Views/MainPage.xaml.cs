@@ -15,8 +15,13 @@ namespace SpiWpf.Wpf.Views
         public MainPage()
         {
             InitializeComponent();
+            //Igualamos el MainWindows a MainPage, para poderlo usar desde
+            //cualquier UserControler y Cerrar o Llamar otros UserControles.
+            Application.Current.MainWindow = this;
+
             //para maximizado de la pantalla en cualquier monitor
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
         }

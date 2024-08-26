@@ -64,7 +64,7 @@
 
 
                     <!--Add Button-->
-                    <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3">
+                    <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3" Command="{Binding SuspendedNewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Add"  Margin="0 1 8 0" Width="11" Height="11" Foreground="White"/>
                             <TextBlock Text="Suspender Cliente"/>

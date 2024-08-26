@@ -44,7 +44,7 @@
                     <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
-                 Text="Clientes" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
+                 Text="Nodos" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
 
                             <Grid Width="300" VerticalAlignment="Center">
                                 <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
