@@ -50,8 +50,8 @@
 
                             <Grid Width="300" VerticalAlignment="Center">
                                 <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search here ..."
-                           Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
+                                       Panel.ZIndex="1" Text="Search here ..."
+                                       Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
 
                                 <TextBox Name="textBoxSearch" TextChanged="textBoxSearch_TextChanged" Style="{StaticResource searchTextbox}"/>
 
