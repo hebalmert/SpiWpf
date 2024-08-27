@@ -11,16 +11,13 @@ namespace SpiWpf.Wpf.ViewModels
 {
     public partial class SuspendedNewViewModel : ObservableObject
     {
-        private string? _searchText;
-        private ClientDTO? _selectedClient;
-        private ContractDTO? _selectedContract;
-        private Visibility _listBoxVisibility;
-
-        // Colecciones para clientes y contratos
+        
+      
         public ObservableCollection<ClientDTO> ClientsLst { get; set; }
         public ObservableCollection<ContractDTO> ContractsLst { get; set; }
 
-        // Propiedades para binding
+
+        private string? _searchText;
         public string? SearchText
         {
             get => _searchText;
@@ -28,10 +25,36 @@ namespace SpiWpf.Wpf.ViewModels
             {
                 SetProperty(ref _searchText, value);
                 SearchTextCommand.Execute(null);
-                ListBoxVisibility = string.IsNullOrEmpty(_searchText) ? Visibility.Collapsed : Visibility.Visible;
+                IsPopupOpen = true;
+                //ListBoxVisibility = string.IsNullOrEmpty(_searchText) ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 
+        private DateTime _Fecha;
+        public DateTime Fecha
+        {
+            get => _Fecha;
+            set => SetProperty(ref _Fecha, value);
+        }
+
+        private bool _isPopupOpen;
+        public bool IsPopupOpen
+        {
+            get => _isPopupOpen;
+            set => SetProperty(ref _isPopupOpen, value);
+        }
+
+        private ContracDetailsNewSuspention? _ContractNewSuspention;
+        public ContracDetailsNewSuspention? ContractNewSuspention
+        {
+            get { return _ContractNewSuspention; }
+            set
+            {
+                SetProperty(ref _ContractNewSuspention, value);
+            }
+        }
+
+        private ClientDTO? _selectedClient;
         public ClientDTO? SelectedClient
         {
             get { return _selectedClient; }
@@ -39,16 +62,23 @@ namespace SpiWpf.Wpf.ViewModels
             { 
                 SetProperty(ref _selectedClient, value); 
                 LoadContractCommand.Execute(null);
-                ListBoxVisibility = Visibility.Collapsed;
+                IsPopupOpen = false;
+                //ListBoxVisibility = Visibility.Collapsed;
             }
         }
 
+        private ContractDTO? _selectedContract;
         public ContractDTO? SelectedContract
         {
             get { return _selectedContract; }
-            set { SetProperty(ref _selectedContract, value); }
+            set 
+            { 
+                SetProperty(ref _selectedContract, value);
+                LoadContractDetailsCommand.Execute(null);
+            }
         }
 
+        private Visibility _listBoxVisibility;
         public Visibility ListBoxVisibility
         {
             get => _listBoxVisibility;
@@ -67,6 +97,7 @@ namespace SpiWpf.Wpf.ViewModels
 
         public RelayCommand SearchTextCommand { get; }
         public RelayCommand LoadContractCommand { get; }
+        public RelayCommand LoadContractDetailsCommand { get; }
 
         public SuspendedNewViewModel()
         {
@@ -75,9 +106,10 @@ namespace SpiWpf.Wpf.ViewModels
             ListaClientes = new List<ClientsAPI>();
             SearchTextCommand = new RelayCommand(SearchClient);
             LoadContractCommand = new RelayCommand(LoadContratos);
+            LoadContractDetailsCommand = new RelayCommand(LoadContractDetails);
+            Fecha = DateTime.Now;
             LoadCLients();
         }
-
 
         private void SearchClient()
         {
@@ -93,17 +125,59 @@ namespace SpiWpf.Wpf.ViewModels
             }
         }
 
-        private void LoadContratos() 
+        private async void LoadContractDetails()
+        {
+            var detalle = SelectedContract;
+            if (detalle == null)
+            {
+                return;
+            }
+            var responseHttp = await Repository.Get<ContracDetailsNewSuspention>($"/api/contracts/ContractDetailsNewSuspen/{SelectedClient!.Id}/{SelectedContract!.Id}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            ContractNewSuspention = responseHttp.Response;
+
+        }
+
+        private async void LoadContratos() 
         {
             var datocliente = SelectedClient;
             if (datocliente != null)
             {
                 SearchText = datocliente!.Name;
             }
-            return;
+            else
+            {
+                return;
+            }
+            var responseHttp = await Repository.Get<List<ContractDTO>>($"/api/contracts/SelectContract/{datocliente!.Id}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            //Convertimos el List a un ObservableCollection
+            List<ContractDTO> lista = responseHttp.Response;
+            ContractsLst?.Clear();
+            if (lista != null || lista!.Count > 0)
+            {
+                foreach (var item in lista!)
+                {
+                    ContractsLst!.Add(item);
+                }
+            }
         }
 
-        public async Task LoadCLients()
+        public async void LoadCLients()
         {
             IsLoading = true;
 

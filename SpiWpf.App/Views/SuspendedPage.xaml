@@ -95,7 +95,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Fecha" Binding="{Binding DateSuspended, StringFormat={}{0:MM-dd-yyyy}}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding DateSuspended, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Plan" Binding="{Binding PlanName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Monto" Binding="{Binding MontoPlan}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">

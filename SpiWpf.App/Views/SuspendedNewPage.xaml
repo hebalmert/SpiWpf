@@ -8,8 +8,8 @@
              xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:SuspendedNewViewModel}"
              mc:Ignorable="d" 
-             Background="Blue"
-             d:DesignHeight="450" d:DesignWidth="800">
+             Background="Transparent"
+             d:DesignHeight="550" d:DesignWidth="900">
 
     <ContentControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -21,191 +21,247 @@
 
         </Border.BorderBrush>
         <Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
+            <Grid Width="900" Height="400" Background="White" VerticalAlignment="Top" Margin="0,50,0,0">
+                <Border Background="White" BorderThickness="2" CornerRadius="10">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#003C6F"/>
+                    </Border.BorderBrush>
+                    <Grid Width="800" Margin="0,20,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="280">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Fecha" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtPassword" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                        <!--Titulo -->
+                        <Grid Grid.Row="0" Height="60">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" HorizontalAlignment="Left" Grid.Row="0">
+                                    <Grid Margin="7 2">
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
+                                                Text="Nueva Suspension" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
+                                    </Grid>
                                 </Grid>
-                            </Border>
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <!--Seprator-->
+                                    <Separator Height="2" Background="Black" Margin="10,5,20,0"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <!--Fecha -->
+                        <Grid Grid.Row="1" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="280">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Fecha" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtPassword" Text="{Binding Fecha, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <!--CLiente - Contrato-->
+                        <Grid Grid.Row="2" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Cliente" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtCliente" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                                                       Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                                        </Grid>
+
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Contrato" Style="{StaticResource textLabel}"/>
+                                            <ComboBox x:Name="txtContrato" ItemsSource="{Binding ContractsLst}" DisplayMemberPath="ControlContrato" SelectedItem="{Binding SelectedContract}"  
+                                                      Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Direccion-->
+                        <Grid Grid.Row="3" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="770">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Direccion" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtDireccion" Text="{Binding ContractNewSuspention.Direccion}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Telefono Ciudad Zona-->
+                        <Grid Grid.Row="4" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Telefono" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtPhone" Text="{Binding ContractNewSuspention.telefono}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Ciudad" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtCiudad" Text="{Binding ContractNewSuspention.ciudad}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="2" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Zona" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtZone" Text="{Binding ContractNewSuspention.zona}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Plan Precio-->
+                        <Grid Grid.Row="5" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid  Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="505">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Plan" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtPlan" Text="{Binding ContractNewSuspention.PlanName}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="2" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Precio" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtMonto" Text="{Binding ContractNewSuspention.Monto}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Motivo Retiro-->
+                        <Grid Grid.Row="6" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="770">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Motivo" Style="{StaticResource textLabel}"/>
+                                            <TextBox x:Name="txtMotivo" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="1" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="280">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Cliente" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtCliente" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="1" >
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="280">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Contrato" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtContrato" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="2" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="767">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Direccion" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtDireccion" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="3" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Cliente" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtPhone" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="1" >
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Contrato" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtCiudad" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="2" >
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Contrato" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtZone" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="4" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid  Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="505">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Cliente" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtPlan" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="2" >
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="230">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Contrato" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtMonto" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="5" Height="60">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalAlignment="Left">
-                            <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="767">
-                                <Grid Margin="7 2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Motivo" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="txtMotivo" Text="{Binding LoginCls.Password}" Style="{StaticResource textBox}" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                </Border>
+
             </Grid>
 
             <!-- Superposición del ProgressBar -->
             <!--<Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>-->
+
+            <!-- Popup para el ListBox -->
+            <Popup PlacementTarget="{Binding ElementName=txtCliente}" 
+                                               StaysOpen="False" 
+                                               IsOpen="{Binding IsPopupOpen}">
+                <Border BorderBrush="#acb0af" BorderThickness="1" Background="White" CornerRadius="5">
+                    <ListBox ItemsSource="{Binding ClientsLst}"
+                             DisplayMemberPath="Name" 
+                             SelectedItem="{Binding SelectedClient}"/>
+                </Border>
+            </Popup>
         </Grid>
 
     </Border>

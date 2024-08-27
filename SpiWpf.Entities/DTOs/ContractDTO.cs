@@ -3,6 +3,6 @@
     public class ContractDTO
     {
         public int Id { get; set; }
-        public string? Description { get; set; }
+        public string? ControlContrato { get; set; }
     }
 }
