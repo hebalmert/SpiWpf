@@ -94,6 +94,12 @@ namespace SpiWpf.Wpf.ViewModels
         [RelayCommand]
         public async Task SuspendedToActive(int IdSuspended)
         {
+            var msgresult = MessageBox.Show("Realmente Desea Activar este Cliente?", "Vierificacion de Activacion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgresult == MessageBoxResult.No)
+            { 
+                return;
+            }
+
             IsLoading = true;
 
             var responseHttp = await Repository.Get<SuspendedActiveAPI>($"/api/suspended/toactive/{IdSuspended}");

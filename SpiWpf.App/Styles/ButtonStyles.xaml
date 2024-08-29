@@ -118,5 +118,64 @@
         <Setter Property="Width" Value="16"/>
         <Setter Property="Height" Value="16"/>
     </Style>
+    
+    <!--Botones Primary y Secundary y Back-->
+    <Style x:Key="saveButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Margin" Value="0 20 0 0"/>
+        <Setter Property="Background" Value="#00008B"/>
+        <Setter Property="Foreground" Value="#fdfefe"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#0B37B6"/>
+                <Setter Property="Foreground"  Value="White"/>
+            </Trigger>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="#0B37B6"/>
+                <Setter Property="Foreground"  Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="BackButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Margin" Value="0 20 0 0"/>
+        <Setter Property="Background" Value="#1F1F1F"/>
+        <Setter Property="Foreground" Value="#fdfefe"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#353535"/>
+                <Setter Property="Foreground"  Value="White"/>
+            </Trigger>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="#353535"/>
+                <Setter Property="Foreground"  Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

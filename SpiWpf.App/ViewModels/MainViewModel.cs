@@ -66,7 +66,6 @@ namespace SpiWpf.Wpf.ViewModels
 
         public void LoadSuspendedNewView()
         {
-            CurrentChildView = null;
             CurrentChildView = new SuspendedNewViewModel();
         }
 

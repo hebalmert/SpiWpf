@@ -3,8 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Data;
 using SpiWpf.Entities.DTOs;
 using SpiWpf.Entities.Models;
+using SpiWpf.Wpf.Helpers;
+using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
+using System.Net.NetworkInformation;
 using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
@@ -35,6 +37,13 @@ namespace SpiWpf.Wpf.ViewModels
         {
             get => _Fecha;
             set => SetProperty(ref _Fecha, value);
+        }
+
+        private string _Motivo;
+        public string Motivo
+        {
+            get => _Motivo;
+            set => SetProperty(ref _Motivo, value);
         }
 
         private bool _isPopupOpen;
@@ -109,6 +118,93 @@ namespace SpiWpf.Wpf.ViewModels
             LoadContractDetailsCommand = new RelayCommand(LoadContractDetails);
             Fecha = DateTime.Now;
             LoadCLients();
+        }
+
+        [RelayCommand]
+        public async void GuardarBoton() 
+        {
+            var cliente = SelectedClient;
+            var contrato = SelectedContract;
+            var motivoSuspension = Motivo;
+            if (string.IsNullOrEmpty(cliente!.Name) || string.IsNullOrEmpty(contrato!.ControlContrato) || string.IsNullOrEmpty(motivoSuspension))
+            {
+                MessageBox.Show("Cliente, Contrato y Motivo son Datos Obligatorios", "Error para Continuar", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            IsLoading = true;
+
+            SuspendeCliente modelo = new() 
+            { 
+                ClientId = cliente.Id,
+                ContractId = contrato.Id,
+                ControlContrato = contrato.ControlContrato,
+                Motivo = motivoSuspension,
+                PlanName = ContractNewSuspention!.PlanName,
+                MontoPlan = ContractNewSuspention.Monto
+            };
+            var responseHttp = await Repository.Get<SuspendedActiveAPI>($"/api/suspended/toSuspendclient/{SelectedClient!.Id}/{SelectedContract!.Id}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SuspendedActiveAPI DatoAsuspender = responseHttp.Response;
+            //Verificamos el Ping al servidor para ver si responde y continuar
+            Ping ping = new();
+            PingReply reply = await ping.SendPingAsync(DatoAsuspender.IpNetwork!, 3000);
+            if (reply.Status != IPStatus.Success)
+            {
+                // El ping fue exitoso
+                IsLoading = false;
+                MessageBox.Show($"Fallo el ping a {DatoAsuspender.IpNetwork}. Estado: {reply.Status}", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            //Termina prueba del Ping
+
+            ////////////////////////////////////////////////////////////
+            MK mikrotik = new MK(DatoAsuspender.IpNetwork!, DatoAsuspender.ApiPort);
+            if (!mikrotik.Login(DatoAsuspender.Usuario!, DatoAsuspender.Clave!))
+            {
+                IsLoading = false;
+                MessageBox.Show($"Error en la Conexion al Servidor Mikrotik", "Error Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            mikrotik.Send("/ip/hotspot/ip-binding/set");
+            mikrotik.Send("=.id=" + DatoAsuspender.IdIpBinding);
+            mikrotik.Send("=type=" + "regular");
+            mikrotik.Send("/ip/hotspot/ip-binding/print", true);
+
+            int total = 0;
+            int rest = 0;
+            string idmk;
+
+            foreach (var item2 in mikrotik.Read())
+            {
+                idmk = item2;
+                total = idmk.Length;
+                rest = total - 10;
+            }
+
+            mikrotik.Close();
+
+            var responseHttp2 = await Repository.Post<SuspendeCliente>($"/api/suspended/CreateSuspended/", modelo);
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            IsLoading = false;
+
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadSuspendedView();
         }
 
         private void SearchClient()
