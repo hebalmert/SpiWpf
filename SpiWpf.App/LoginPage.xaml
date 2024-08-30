@@ -227,9 +227,9 @@
             </Border>
 
             <!-- Superposición del ProgressBar -->
-            <!--<Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
+            <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>-->
+            </Grid>
         </Grid>
     </Border>
 </Window>
