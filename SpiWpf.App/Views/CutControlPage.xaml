@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="SpiWpf.Wpf.Views.CutControlPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:SpiWpf.Wpf.Views"
+             xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=vm:CutControlViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <ContentControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </ContentControl.Resources>
+
+    <Border Background="WhiteSmoke" CornerRadius="5" BorderThickness="2">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="DarkGray"/>
+
+        </Border.BorderBrush>
+        <Grid>
+            <Grid Margin="5 10 5 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="393*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Page Title-->
+                    <Grid Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
+                                Text="Suspension General" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
+
+                            <Grid Width="300" VerticalAlignment="Center">
+                                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                                  Panel.ZIndex="1" Text="Search here ..." Visibility="{Binding ElementName=textBoxSearch, Path=Text.Length, Converter={StaticResource BoolToVis}}" />
+
+                                <TextBox Name="textBoxSearch" TextChanged="textBoxSearch_TextChanged" Style="{StaticResource searchTextbox}"/>
+
+                                <fa:IconImage Icon="Search" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#B0B9C6" HorizontalAlignment="Right" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <!--Search Textbox-->
+
+
+                    <!--Add Button-->
+                    <Button Grid.Column="1" Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0,0,0,3" Command="{Binding LoadCutControlNewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Add"  Margin="0 1 8 0" Width="11" Height="11" Foreground="White"/>
+                            <TextBlock Text="Nueva Suspension"/>
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+
+                <!--Seprator-->
+                <Separator Height="1" Background="Black" Margin="0,57,0,10" Grid.RowSpan="2"/>
+
+                <!--Members Data Grid-->
+
+                <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                 CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
+                     ItemsSource="{Binding ContractCutsLst}" Margin="0,10,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Fecha" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="8" Height="8" CornerRadius="50" Margin="0 0 10 0" Background="DarkOliveGreen">
+                                            <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        </Border>
+
+                                        <TextBlock Text="{Binding DateCut, StringFormat={}{0:dd-MM-yyyy}}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Mes" Binding="{Binding Mes}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Año" Binding="{Binding YearNumber}" IsReadOnly="True" Width="*"/>
+                        
+                        <!-- Aquí se cambia la columna de texto a una columna con un CheckBox -->
+                        <DataGridTemplateColumn Header="Creado" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Creado}" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding DateCreado, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}">
+                                            <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0">
+                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                            <Button.Style>
+                                                <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Creado}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+            <!-- Superposición del ProgressBar -->
+            <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Border>
+
+</UserControl>

@@ -4,8 +4,8 @@
     <!--Background Colors-->
     <Color x:Key="primaryBackColor1">#1C75E8</Color>
     <Color x:Key="primaryBackColor2">#1C791C</Color>
-    <Color x:Key="secondaryBackColor1">#1C791C</Color>
-    <Color x:Key="secondaryBackColor2">#1C75E8</Color>
+    <Color x:Key="secondaryBackColor1">#353535</Color>
+    <Color x:Key="secondaryBackColor2">#656565</Color>
     <!--Window Border Colors-->
     <Color x:Key="winBorderColor1">#1C75E8</Color>
     <Color x:Key="winBorderColor2">#1C791C</Color>

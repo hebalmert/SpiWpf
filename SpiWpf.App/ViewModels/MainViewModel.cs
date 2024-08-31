@@ -59,15 +59,21 @@ namespace SpiWpf.Wpf.ViewModels
         }
 
         [RelayCommand]
-        public void LoadSuspensionCliente()
+        public void LoadCutControl()
         {
-            CurrentChildView = null;
+            CurrentChildView = new CutControlViewModel();
         }
 
+        //una ViewModel llamada desde otro User Control
         public void LoadSuspendedNewView()
         {
             CurrentChildView = new SuspendedNewViewModel();
         }
 
+        //una ViewModel llamada desde otro User Control
+        public void LoadCutControlNewView()
+        {
+            CurrentChildView = new CutControlNewViewModel();
+        }
     }
 }
