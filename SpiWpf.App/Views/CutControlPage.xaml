@@ -113,7 +113,7 @@
                                         <Button Style="{StaticResource gridEditButton}">
                                             <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0">
+                                        <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ContractCutId}">
                                             <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
                                             <Button.Style>
                                                 <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">

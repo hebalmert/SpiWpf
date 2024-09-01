@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SpiWpf.Data;
 using SpiWpf.Entities.DTOs;
 using SpiWpf.Entities.Enum;
+using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
 {
@@ -60,6 +63,13 @@ namespace SpiWpf.Wpf.ViewModels
             {
                 SetProperty(ref _FechaFinal, value);
             }
+        }
+
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get { return _IsLoading; }
+            set { SetProperty(ref _IsLoading, value); }
         }
 
         private List<MesDTO>? meses = new List<MesDTO>();
@@ -137,8 +147,23 @@ namespace SpiWpf.Wpf.ViewModels
                 DateEnd = FechaFinal
             };
 
+            var responseHttp = await Repository.Post<ContractCutAPI, ContractCutAPI>("/api/cutcontrol/NewCutControlGen", modelo);
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var BackModelo = responseHttp.Response;
+
+            IsLoading = false;
 
 
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadCutControlDetail(BackModelo);
 
         }
 

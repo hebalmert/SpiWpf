@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SpiWpf.Entities.DTOs;
 using System.Runtime.Serialization.DataContracts;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,6 +75,16 @@ namespace SpiWpf.Wpf.ViewModels
         public void LoadCutControlNewView()
         {
             CurrentChildView = new CutControlNewViewModel();
+        }
+
+        //una ViewModel llamada desde otro User Control
+        //Forma para pasar parametros de un UserControl a Otro UserControl
+        public void LoadCutControlDetail(ContractCutAPI value)
+        {
+            var viewmododel = new CutControlDetailViewModel();
+            viewmododel.PaseParametro(value);
+            CurrentChildView = viewmododel;
+            
         }
     }
 }

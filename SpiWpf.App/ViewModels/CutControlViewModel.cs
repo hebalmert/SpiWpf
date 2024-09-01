@@ -43,6 +43,31 @@ namespace SpiWpf.Wpf.ViewModels
             viewModel!.LoadCutControlNewView();
         }
 
+        [RelayCommand]
+        public async Task DeleteCutControl(int idcutcontrol) 
+        {
+            var msgresult = MessageBox.Show("Realmente Desea Eliminar Este Control de Suspension General?", "Vierificacion de Activacion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgresult == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            IsLoading = true;
+
+            var responseHttp2 = await Repository.Delete($"/api/cutcontrol/toDelete/{idcutcontrol}");
+            if (responseHttp2.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp2.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            await LoadCutControl();
+
+            IsLoading = false;
+            MessageBox.Show($"El Registro se Elimino con Exito", "Confirmacion Exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
         public async Task LoadCutControl()
         {
