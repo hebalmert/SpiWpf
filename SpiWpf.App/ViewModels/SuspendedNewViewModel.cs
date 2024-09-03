@@ -138,7 +138,6 @@ namespace SpiWpf.Wpf.ViewModels
             { 
                 ClientId = cliente.Id,
                 ContractId = contrato.Id,
-                ControlContrato = contrato.ControlContrato,
                 Motivo = motivoSuspension,
                 PlanName = ContractNewSuspention!.PlanName,
                 MontoPlan = ContractNewSuspention.Monto

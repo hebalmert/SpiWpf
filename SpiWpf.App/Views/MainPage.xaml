@@ -45,6 +45,9 @@
         <DataTemplate DataType="{x:Type vm:CutControlDetailViewModel}">
             <local:CutControlDetailPage/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ContractViewModel}">
+            <local:ContractPage/>
+        </DataTemplate>
     </Window.Resources>
 
     <Border CornerRadius="10" BorderThickness="1">
@@ -113,7 +116,7 @@
                             <TextBlock Text="Clientes" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color2}" IsChecked="False">
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color2}" IsChecked="False" Command="{Binding LoadContractsCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGear" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Contratos" Style="{StaticResource menuButtonText}"/>

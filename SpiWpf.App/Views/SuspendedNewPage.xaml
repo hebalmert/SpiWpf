@@ -259,7 +259,7 @@
                                 <StackPanel Orientation="Horizontal" Grid.Row="0" >
                                     <Button Content="Guardar"  Style="{StaticResource saveButton}" Margin="0,10,20,10"
                                             Command="{Binding GuardarBotonCommand}"></Button>
-                                    <Button Content="Guardar"  Style="{StaticResource BackButton}" Margin="20,10,0,10"
+                                    <Button Content="Volver"  Style="{StaticResource BackButton}" Margin="20,10,0,10"
                                             Command=""></Button>
                                 </StackPanel>
 

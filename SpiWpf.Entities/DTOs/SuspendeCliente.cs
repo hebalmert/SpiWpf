@@ -6,8 +6,6 @@
 
         public int ContractId { get; set; }
 
-        public string? ControlContrato { get; set; }
-
         public string? Motivo { get; set; }
 
         public string? PlanName { get; set; }

@@ -69,6 +69,15 @@ namespace SpiWpf.Wpf.ViewModels
             MessageBox.Show($"El Registro se Elimino con Exito", "Confirmacion Exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        [RelayCommand]
+        public void DetailCutControl(int idcutcontrol)
+        {
+            ContractCutAPI modelo = ListaContractCut!.Where(x => x.ContractCutId == idcutcontrol).FirstOrDefault()!;
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadCutControlDetail(modelo);
+        }
+
         public async Task LoadCutControl()
         {
             IsLoading = true;

@@ -167,5 +167,12 @@ namespace SpiWpf.Wpf.ViewModels
 
         }
 
+        [RelayCommand]
+        public void VolverBoton() 
+        {
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadCutControl();
+        }
     }
 }

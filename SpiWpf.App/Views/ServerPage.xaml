@@ -108,8 +108,8 @@
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.PingMKCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ServerId}">
                                             <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
-                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                        <Button Margin="5,0,0,0" Style="{StaticResource gridEditButton}">
+                                            <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
                                             <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>

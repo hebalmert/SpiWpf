@@ -65,6 +65,12 @@ namespace SpiWpf.Wpf.ViewModels
             CurrentChildView = new CutControlViewModel();
         }
 
+        [RelayCommand]
+        public void LoadContracts()
+        {
+            CurrentChildView = new ContractViewModel();
+        }
+
         //una ViewModel llamada desde otro User Control
         public void LoadSuspendedNewView()
         {
@@ -82,9 +88,8 @@ namespace SpiWpf.Wpf.ViewModels
         public void LoadCutControlDetail(ContractCutAPI value)
         {
             var viewmododel = new CutControlDetailViewModel();
-            viewmododel.PaseParametro(value);
             CurrentChildView = viewmododel;
-            
+            viewmododel.PaseParametro(value);
         }
     }
 }

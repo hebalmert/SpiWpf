@@ -4,9 +4,256 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SpiWpf.Wpf.Views"
+             xmlns:vm="clr-namespace:SpiWpf.Wpf.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:CutControlDetailViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Aqua">
+             d:DesignHeight="580" d:DesignWidth="950">
 
-    </Grid>
+    <ContentControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </ContentControl.Resources>
+
+    <Border Background="WhiteSmoke" CornerRadius="5" BorderThickness="2">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="DarkGray"/>
+
+        </Border.BorderBrush>
+        <Grid>
+
+            <Grid Width="900" Height="420" Background="Transparent" VerticalAlignment="Top" Margin="0,50,0,0">
+                <Border Background="White" BorderThickness="2" CornerRadius="10" Margin="0,-2,-10,2">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#003C6F"/>
+                    </Border.BorderBrush>
+                    <Grid Width="800" Margin="0,20,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!--Titulo -->
+                        <Grid Grid.Row="0" Height="60">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" HorizontalAlignment="Left" Grid.Row="0">
+                                    <Grid Margin="7 2">
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"
+                                                Text="Ejecutar Suspension General" FontSize="32" FontWeight="SemiBold"  Foreground="#121518"/>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <!--Seprator-->
+                                    <Separator Height="2" Background="Black" Margin="10,5,20,0"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <!--Fecha -->
+                        <Grid Grid.Row="1" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="280">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Fecha" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="txtPassword" Text="{Binding ContractCut.DateCut, StringFormat={}{0:dd-MM-yyyy}}" 
+                                                     IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <!--CLiente - Contrato-->
+                        <Grid Grid.Row="2" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Año" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="txtAno" Text="{Binding ContractCut.YearNumber, Mode=TwoWay}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Mes" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="txtMes" Text="{Binding ContractCut.Mes, Mode=TwoWay}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Direccion-->
+                        <Grid Grid.Row="3" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Inicio" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="txtFechaIni" Text="{Binding ContractCut.DateStr, Mode=TwoWay, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Final" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="txtFechaFin" Text="{Binding ContractCut.DateEnd, Mode=TwoWay, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="4" Height="60">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" HorizontalAlignment="Left">
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Creado" Style="{StaticResource textLabel}" Width="46"/>
+                                            <CheckBox Grid.Column="1" Margin="30,0,0,0" x:Name="chkCasilla" 
+                                                  IsChecked="{Binding ContractCut.Creado, Mode=TwoWay}" IsEnabled="False"
+                                                  VerticalAlignment="Center" 
+                                                  HorizontalAlignment="Left" 
+                                                  Background="LightGray" />
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border BorderThickness="1" BorderBrush="#acb0af" Margin="10 7" CornerRadius="5" Height="35" Width="360">
+                                        <Grid Margin="7 2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Creado" Style="{StaticResource textLabel}" Width="46"/>
+                                            <TextBox x:Name="CheckCreado" Text="{Binding ContractCut.DateCreado, Mode=TwoWay, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Style="{StaticResource textBox}" VerticalAlignment="Center" Background="LightGray"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <!--Plan Precio-->
+
+                        <!--Motivo Retiro-->
+                        <Grid Grid.Row="5" Height="70" Margin="0,10,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" HorizontalAlignment="Left">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="6*"/>
+                                        <RowDefinition Height="43*"/>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <!--Seprator-->
+                                    <Separator Height="2" Background="Black" Margin="10,5,20,0"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="6" Margin="0,0,0,18">
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0" >
+                                    <Button Content="Ejecutar" Margin="20,5,20,10"
+                                            Command="{Binding DoGeneralCutCommand}">
+                                        <Button.Style>
+                                            <Style  TargetType="Button" BasedOn="{StaticResource doButton}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ContractCut.Creado}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Content="Volver"  Style="{StaticResource BackButton}" Margin="20,5,0,10"
+                                            Command="{Binding VolverBotonCommand}"></Button>
+                                </StackPanel>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+            <!-- Superposición del ProgressBar -->
+            <!--<Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>-->
+
+            <!-- Popup para el ListBox -->
+            <Popup PlacementTarget="{Binding ElementName=txtCliente}" 
+                                               StaysOpen="False" 
+                                               IsOpen="{Binding IsPopupOpen}">
+                <Border BorderBrush="#acb0af" BorderThickness="1" Background="White" CornerRadius="5">
+                    <ListBox ItemsSource="{Binding ClientsLst}"
+                             DisplayMemberPath="Name" 
+                             SelectedItem="{Binding SelectedClient}"/>
+                </Border>
+            </Popup>
+        </Grid>
+
+    </Border>
 </UserControl>
