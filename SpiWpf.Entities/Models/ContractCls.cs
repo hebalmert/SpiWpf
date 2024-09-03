@@ -1,6 +1,4 @@
-﻿using SpiWpf.Entities.Enum;
-
-namespace SpiWpf.Entities.Models
+﻿namespace SpiWpf.Entities.Models
 {
     public class ContractCls
     {
@@ -15,6 +13,8 @@ namespace SpiWpf.Entities.Models
         public string Zona { get; set; } = null!;
 
         public string StateType { get; set; } = null!;
+
+        public string Color { get; set; } = null!;
 
         public int CorporateId { get; set; }
 

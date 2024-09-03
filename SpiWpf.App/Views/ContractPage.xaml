@@ -96,8 +96,15 @@
                         <DataGridTextColumn Header="Cliente" Binding="{Binding FullName}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Contratista" Binding="{Binding Contratista}" IsReadOnly="True" Width="200"/>
                         <DataGridTextColumn Header="zona" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Estado" Binding="{Binding StateType}" IsReadOnly="True" Width="150"/>
                         
+                        <DataGridTemplateColumn Header="Estado" Width="150" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StateType}" Foreground="{Binding Color}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTemplateColumn Header="Creado" Width="*" Visibility="Hidden">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
