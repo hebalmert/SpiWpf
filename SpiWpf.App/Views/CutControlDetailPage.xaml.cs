@@ -1,5 +1,4 @@
-﻿using SpiWpf.Entities.DTOs;
-using SpiWpf.Wpf.ViewModels;
+﻿using SpiWpf.Wpf.ViewModels;
 using System.Windows.Controls;
 
 namespace SpiWpf.Wpf.Views
@@ -9,7 +8,7 @@ namespace SpiWpf.Wpf.Views
     /// </summary>
     public partial class CutControlDetailPage : UserControl
     {
-        private CutControlDetailViewModel _viewModel { get; set; } 
+        private CutControlDetailViewModel _viewModel { get; set; }
 
         public CutControlDetailPage()
         {

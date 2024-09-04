@@ -56,7 +56,15 @@ namespace SpiWpf.Wpf.ViewModels
         {
             if (string.IsNullOrEmpty(txtbuscar))
             {
-                await LoadPlanes();
+                var ListaSuspended = ListaPlanes!.ToList();
+                PlanAPILst?.Clear();
+                if (ListaSuspended != null || PlanAPILst!.Count > 0)
+                {
+                    foreach (var item in ListaSuspended!)
+                    {
+                        PlanAPILst!.Add(item);
+                    }
+                }
             }
             else
             {

@@ -91,5 +91,14 @@ namespace SpiWpf.Wpf.ViewModels
             CurrentChildView = viewmododel;
             viewmododel.PaseParametro(value);
         }
+
+        //una ViewModel llamada desde otro User Control
+        //Forma para pasar parametros de un UserControl a Otro UserControl
+        public void LoadContractDetail(int value)
+        {
+            var viewmododel = new ContractDetailsViewModel();
+            CurrentChildView = viewmododel;
+            viewmododel.PaseParametro(value);
+        }
     }
 }

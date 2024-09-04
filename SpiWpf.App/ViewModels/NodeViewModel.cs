@@ -56,7 +56,15 @@ namespace SpiWpf.Wpf.ViewModels
         {
             if (string.IsNullOrEmpty(txtbuscar))
             {
-                await LoadNodes();
+                var ListaSuspended = ListaNodos!.ToList();
+                NodeAPILst?.Clear();
+                if (ListaSuspended != null || NodeAPILst!.Count > 0)
+                {
+                    foreach (var item in ListaSuspended!)
+                    {
+                        NodeAPILst!.Add(item);
+                    }
+                }
             }
             else
             {

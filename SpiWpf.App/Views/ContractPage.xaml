@@ -125,10 +125,10 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.DetailCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                CommandParameter="{Binding ContractCutId}">
-                                            <fa:IconImage Icon="RectangleList" Style="{StaticResource gridButtonIconActive}"  Width="15" Height="15"/>
+                                        <Button Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.DetailContractCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ContractId}">
+                                            <fa:IconImage Icon="RectangleList" Style="{StaticResource gridButtonIconActive}"/>
                                         </Button>
+                                        
                                         <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                                                 CommandParameter="{Binding ContractId}">
                                             <fa:IconImage Icon="Gauge" Style="{StaticResource gridButtonIconActive}" Width="15" Height="15"/>
@@ -142,6 +142,7 @@
                                                 </Style>
                                             </Button.Style>
                                         </Button>
+                                        
                                         <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                                                 CommandParameter="{Binding ContractId}">
                                             <fa:IconImage Icon="PersonRays" Style="{StaticResource gridButtonIconActive}" Width="15" Height="15"/>
@@ -155,6 +156,7 @@
                                                 </Style>
                                             </Button.Style>
                                         </Button>
+                                        
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

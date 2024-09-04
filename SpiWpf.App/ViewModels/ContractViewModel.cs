@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Data;
 using SpiWpf.Entities.Models;
+using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
 {
-    public class ContractViewModel : ObservableObject
+    public partial class ContractViewModel : ObservableObject
     {
         public ObservableCollection<ContractCls>? ContractLst { get; set; }
 
@@ -24,6 +26,15 @@ namespace SpiWpf.Wpf.ViewModels
             ContractLst = new ObservableCollection<ContractCls>();
             ListaContract = new List<ContractCls>();
         }
+
+        [RelayCommand]
+        public void DetailContract(int idcontract) 
+        {
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadContractDetail(idcontract);
+        }
+
 
         public async Task LoadContratos()
         {
@@ -60,7 +71,15 @@ namespace SpiWpf.Wpf.ViewModels
         {
             if (string.IsNullOrEmpty(txtbuscar))
             {
-                await LoadContratos();
+                var ListaContratos = ListaContract!.ToList();
+                ContractLst?.Clear();
+                if (ListaContratos != null || ListaContratos!.Count > 0)
+                {
+                    foreach (var item in ListaContratos!)
+                    {
+                        ContractLst!.Add(item);
+                    }
+                }
             }
             else
             {

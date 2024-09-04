@@ -60,7 +60,15 @@ namespace SpiWpf.Wpf.ViewModels
         {
             if (string.IsNullOrEmpty(txtbuscar))
             {
-                await LoadServers();
+                var ListaSuspended = ListaServidores!.ToList();
+                ServerAPILst?.Clear();
+                if (ListaSuspended != null || ServerAPILst!.Count > 0)
+                {
+                    foreach (var item in ListaSuspended!)
+                    {
+                        ServerAPILst!.Add(item);
+                    }
+                }
             }
             else
             {
