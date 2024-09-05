@@ -106,7 +106,7 @@
                                             <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
-                                            <fa:IconImage Icon="Trash" Style="{StaticResource gridButtonIcon}"/>
+                                            <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>

@@ -1,19 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using SpiWpf.Wpf.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpiWpf.Wpf.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SpiWpf.Wpf.Views
 {
@@ -22,7 +9,7 @@ namespace SpiWpf.Wpf.Views
     /// </summary>
     public partial class SuspendedPage : UserControl
     {
-        private SuspendedViewModel _viewModel {  get; set; }
+        private SuspendedViewModel _viewModel { get; set; }
 
         public SuspendedPage()
         {
@@ -39,8 +26,8 @@ namespace SpiWpf.Wpf.Views
         }
 
         private async void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {          
-           var texto = sender as TextBox;
+        {
+            var texto = sender as TextBox;
             string txtBuscar = texto!.Text;
             if (txtBuscar == null && txtBuscar!.Length == 0) { return; }
 

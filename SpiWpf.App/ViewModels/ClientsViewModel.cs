@@ -58,7 +58,15 @@ namespace SpiWpf.Wpf.ViewModels
         {
             if (string.IsNullOrEmpty(txtbuscar))
             {
-                await LoadCLients();
+                var ListaClient = ListaClientes!.ToList();
+                ClientAPILst?.Clear();
+                if (ListaClient != null || ListaClient!.Count > 0)
+                {
+                    foreach (var item in ListaClient!)
+                    {
+                        ClientAPILst!.Add(item);
+                    }
+                }
             }
             else
             {

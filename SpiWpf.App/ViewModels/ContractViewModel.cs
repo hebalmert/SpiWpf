@@ -4,6 +4,8 @@ using SpiWpf.Data;
 using SpiWpf.Entities.Models;
 using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
+using System.Security.RightsManagement;
 using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
@@ -34,7 +36,6 @@ namespace SpiWpf.Wpf.ViewModels
             var viewModel = mainWindow!.DataContext as MainViewModel;
             viewModel!.LoadContractDetail(idcontract);
         }
-
 
         public async Task LoadContratos()
         {

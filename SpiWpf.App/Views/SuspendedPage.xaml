@@ -20,7 +20,7 @@
             <SolidColorBrush Color="DarkGray"/>
 
         </Border.BorderBrush>
-        <Grid>
+        <Grid x:Name="GridMaestro">
             <Grid Margin="5 10 5 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="393*"/>
