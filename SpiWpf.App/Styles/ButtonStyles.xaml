@@ -151,7 +151,7 @@
 
     <Style x:Key="BackButton" TargetType="Button">
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Width" Value="180"/>
+        <Setter Property="Width" Value="150"/>
         <Setter Property="Margin" Value="0 20 0 0"/>
         <Setter Property="Background" Value="#1F1F1F"/>
         <Setter Property="Foreground" Value="#fdfefe"/>
@@ -160,7 +160,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="15">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="12">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -179,7 +179,7 @@
     </Style>
     <Style x:Key="doButton" TargetType="Button">
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Width" Value="180"/>
+        <Setter Property="Width" Value="150"/>
         <Setter Property="Margin" Value="0 20 0 0"/>
         <Setter Property="Background" Value="#566520"/>
         <Setter Property="Foreground" Value="#fdfefe"/>
@@ -188,7 +188,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="15">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="25" BorderThickness="1" BorderBrush="#003C6F" Padding="12">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>

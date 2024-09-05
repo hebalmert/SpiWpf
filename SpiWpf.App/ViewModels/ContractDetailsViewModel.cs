@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Data;
+using SpiWpf.Entities.DTOs;
 using SpiWpf.Entities.Models;
 using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
@@ -57,6 +58,38 @@ namespace SpiWpf.Wpf.ViewModels
         public void PaseParametro(int value)
         {
             DatoPrueba = value;
+        }
+
+        [RelayCommand]
+        public async Task ActiveContract()
+        {
+            if (ExistBind == false || ExistQueues == false)
+            {
+                MessageBox.Show("Para Activar un Contrato, debes tener Queues y Binding activos", "Vierificacion de Activacion", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var msgresult = MessageBox.Show("Deseas Activar el Contrato?", "Vierificacion de Activacion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (msgresult == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            IsLoading = true;
+
+            ContractDTO UpdateContract = new() { Id =Convert.ToInt32(DatoPrueba) , ControlContrato = ContractDetalle!.ControlContrato};
+            //actualizamos el contrato de Proceso a Activo
+
+            var responseHttp = await Repository.Put<ContractDTO>($"/api/contracts/UpdateContractActive", UpdateContract);
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            LoadContractDetails();
         }
 
         [RelayCommand]
