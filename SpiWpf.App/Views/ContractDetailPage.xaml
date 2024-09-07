@@ -21,7 +21,7 @@
         </Border.BorderBrush>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid>
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="0,-1,0,1">
                     <Grid Width="900" Height="440" Background="Transparent" VerticalAlignment="Top" Margin="0,20,0,0">
                         <Border Background="White" BorderThickness="2" CornerRadius="10" Margin="0,3,-10,2">
                             <Border.BorderBrush>
@@ -389,7 +389,7 @@
                                                         <Button.Style>
                                                             <Style  TargetType="Button" BasedOn="{StaticResource addButton}">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding ExistQueues}" Value="True">
+                                                                    <DataTrigger Binding="{Binding ExistIp}" Value="True">
                                                                         <Setter Property="Visibility" Value="Collapsed" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
@@ -416,9 +416,9 @@
                                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGridIpCliente" 
                                              Style="{DynamicResource DataGridStyle1}"
-                                             ItemsSource="{Binding QueLst}" Margin="0,-30,0,0">
+                                             ItemsSource="{Binding IpLst}" Margin="0,-30,0,0">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn  Binding="{Binding Servidor}" IsReadOnly="True" Width="170"/>
+                                                    <DataGridTextColumn  Binding="{Binding IpCliente}" IsReadOnly="True" Width="180"/>
                                                     <DataGridTemplateColumn  Width="*" Visibility="Hidden">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -431,8 +431,21 @@
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                                    CommandParameter="{Binding ContractQueId}">
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.PingToIpClientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding IpCliente}">
+                                                                        <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}" />
+                                                                        <Button.Style>
+                                                                            <Style  TargetType="Button" BasedOn="{StaticResource gridActiveButton}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsCreado}" Value="False">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractIpCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding ContractIpId}">
                                                                         <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
                                                                         <Button.Style>
                                                                             <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
@@ -496,7 +509,7 @@
                                                         <Button.Style>
                                                             <Style  TargetType="Button" BasedOn="{StaticResource addButton}">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding ExistQueues}" Value="True">
+                                                                    <DataTrigger Binding="{Binding ExistMac}" Value="True">
                                                                         <Setter Property="Visibility" Value="Collapsed" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
@@ -523,9 +536,9 @@
                                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                                              CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGridMac" 
                                              Style="{DynamicResource DataGridStyle1}"
-                                             ItemsSource="{Binding QueLst}" Margin="0,-30,0,0">
+                                             ItemsSource="{Binding MacLst}" Margin="0,-30,0,0">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn  Binding="{Binding Servidor}" IsReadOnly="True" Width="170"/>
+                                                    <DataGridTextColumn  Binding="{Binding MacCliente}" IsReadOnly="True" Width="170"/>
                                                     <DataGridTemplateColumn  Width="*" Visibility="Hidden">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -538,8 +551,8 @@
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                                    CommandParameter="{Binding ContractQueId}">
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractMacCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding ContractMacId}">
                                                                         <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
                                                                         <Button.Style>
                                                                             <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
@@ -603,7 +616,7 @@
                                                         <Button.Style>
                                                             <Style  TargetType="Button" BasedOn="{StaticResource addButton}">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding ExistQueues}" Value="True">
+                                                                    <DataTrigger Binding="{Binding ExistServ}" Value="True">
                                                                         <Setter Property="Visibility" Value="Collapsed" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
@@ -630,9 +643,10 @@
                                                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                                                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGridServidor" 
                                                       Style="{DynamicResource DataGridStyle1}"
-                                                      ItemsSource="{Binding QueLst}" Margin="0,-30,0,0">
+                                                      ItemsSource="{Binding ServLst}" Margin="0,-30,0,0">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn  Binding="{Binding Servidor}" IsReadOnly="True" Width="170"/>
+                                                    <DataGridTextColumn  Binding="{Binding NameServidor}" IsReadOnly="True" Width="170"/>
+                                                    <DataGridTextColumn  Binding="{Binding IpServidor}" Visibility="Hidden" IsReadOnly="True" Width="170"/>
                                                     <DataGridTemplateColumn  Width="*" Visibility="Hidden">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -645,8 +659,21 @@
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                                            CommandParameter="{Binding ContractQueId}">
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.PingToServerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding IpServidor}">
+                                                                        <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}" />
+                                                                        <Button.Style>
+                                                                            <Style  TargetType="Button" BasedOn="{StaticResource gridActiveButton}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsCreado}" Value="False">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractServCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding ContractServerId}">
                                                                         <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
                                                                         <Button.Style>
                                                                             <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
@@ -675,15 +702,241 @@
 
                     </Grid>
 
-                    <Grid Width="900" Height="140" Background="Transparent" VerticalAlignment="Top" Margin="0,10,0,0">
-                        <Border Background="White" BorderThickness="2" CornerRadius="10" Margin="0,3,-10,2">
-                            <Border.BorderBrush>
-                                <SolidColorBrush Color="#003C6F"/>
-                            </Border.BorderBrush>
-                            <Grid Margin="28,20,28,0">
+                    <Grid Width="920" Height="140" Background="Transparent" VerticalAlignment="Top" Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal">
 
-                            </Grid>
-                        </Border>
+                            <Border Width="450" Background="White" BorderThickness="2" CornerRadius="10" Margin="10,3,10,2">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#003C6F"/>
+                                </Border.BorderBrush>
+                                <Grid Margin="5,20,5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!--Titulo -->
+                                    <Grid Grid.Row="0" Height="60">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Grid.Column="0" HorizontalAlignment="Left" Grid.Row="0">
+                                                <Grid Margin="7 2">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <fa:IconImage Icon="NetworkWired" Width="30" Height="30" Foreground="#3F943A"/>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0"
+                                                                Text="Plan Cliente" FontSize="20" FontWeight="SemiBold"  Foreground="#121518"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0">
+                                                <Grid Margin="7 2">
+                                                    <!--Add Button-->
+                                                    <Button Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,3" Width="35"
+                                                            Command="{Binding LoadCutControlNewCommand}">
+                                                        <Button.Style>
+                                                            <Style  TargetType="Button" BasedOn="{StaticResource addButton}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding ExistPlan}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <fa:IconImage Icon="CirclePlus"  Width="20" Height="20" Foreground="White"/>
+                                                            <TextBlock Text="" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                                <!--Seprator-->
+                                                <Separator Height="2" Background="Black" Margin="10,0,0,0"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+                                    <!--Dato del Servidor -->
+                                    <Grid Grid.Row="1" Height="40">
+                                        <Grid HorizontalAlignment="Center">
+                                            <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                                                      CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGridPlan" 
+                                                      Style="{DynamicResource DataGridStyle1}"
+                                                      ItemsSource="{Binding PlanLst}" Margin="0,-30,0,0">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn  Binding="{Binding PlanName}" IsReadOnly="True" Width="180"/>
+                                                    <DataGridTextColumn  Binding="{Binding Velocidad}" IsReadOnly="True" Width="90"/>
+                                                    <DataGridTextColumn  Binding="{Binding Precio}" IsReadOnly="True" Width="100"/>
+                                                    <DataGridTemplateColumn  Width="*" Visibility="Hidden">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox IsChecked="{Binding IsCreado}" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn IsReadOnly="True" Width="auto">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractPlanCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding ContractPlanId}">
+                                                                        <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
+                                                                        <Button.Style>
+                                                                            <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsCreado}" Value="False">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+                            </Border>
+                            <Border Width="450" Background="White" BorderThickness="2" CornerRadius="10" Margin="0,3,10,2">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#003C6F"/>
+                                </Border.BorderBrush>
+                                <Grid Margin="5,20,5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!--Titulo -->
+                                    <Grid Grid.Row="0" Height="60">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Grid.Column="0" HorizontalAlignment="Left" Grid.Row="0">
+                                                <Grid Margin="7 2">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <fa:IconImage Icon="NetworkWired" Width="30" Height="30" Foreground="#3F943A"/>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,10,0"
+                                                            Text="Nodo Acceso" FontSize="20" FontWeight="SemiBold"  Foreground="#121518"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Column="1" HorizontalAlignment="Right" Grid.Row="0">
+                                                <Grid Margin="7 2">
+                                                    <!--Add Button-->
+                                                    <Button Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,3" Width="35"
+                                                        Command="{Binding LoadCutControlNewCommand}">
+                                                        <Button.Style>
+                                                            <Style  TargetType="Button" BasedOn="{StaticResource addButton}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding ExistNode}" Value="True">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <fa:IconImage Icon="CirclePlus"  Width="20" Height="20" Foreground="White"/>
+                                                            <TextBlock Text="" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                                <!--Seprator-->
+                                                <Separator Height="2" Background="Black" Margin="10,0,0,0"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+                                    <!--Dato del Servidor -->
+                                    <Grid Grid.Row="1" Height="40">
+                                        <Grid HorizontalAlignment="Center">
+                                            <DataGrid HorizontalContentAlignment="Stretch" Grid.Row="2" RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                                                  CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGridNodo" 
+                                                  Style="{DynamicResource DataGridStyle1}"
+                                                  ItemsSource="{Binding NodeLst}" Margin="0,-30,0,0">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn  Binding="{Binding NodeName}" IsReadOnly="True" Width="170"/>
+                                                    <DataGridTextColumn  Binding="{Binding Ip}" IsReadOnly="True" Width="120"/>
+                                                    <DataGridTemplateColumn  Width="*" Visibility="Hidden">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox IsChecked="{Binding IsCreado}" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn IsReadOnly="True" Width="auto">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.PingToNodeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding Ip}">
+                                                                        <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}" />
+                                                                        <Button.Style>
+                                                                            <Style  TargetType="Button" BasedOn="{StaticResource gridActiveButton}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsCreado}" Value="False">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                    <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractNodeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                            CommandParameter="{Binding ContractNodeId}">
+                                                                        <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
+                                                                        <Button.Style>
+                                                                            <Style  TargetType="Button" BasedOn="{StaticResource gridRemoveButton}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsCreado}" Value="False">
+                                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+
                     </Grid>
 
                     <!--Modulos de Queues y IpBinding-->

@@ -4,7 +4,9 @@ using SpiWpf.Data;
 using SpiWpf.Entities.DTOs;
 using SpiWpf.Entities.Models;
 using SpiWpf.Wpf.Views;
+using System;
 using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
 using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
@@ -17,7 +19,18 @@ namespace SpiWpf.Wpf.ViewModels
 
         public ObservableCollection<BindingInfoCls>? BinLst { get; set; }
 
+        public ObservableCollection<ContractIpDTO>? IpLst { get; set; }
+
+        public ObservableCollection<ContractMacDTO>? MacLst { get; set; }
+
+        public ObservableCollection<ContractServDTO>? ServLst { get; set; }
+
+        public ObservableCollection<ContractPlanDTO>? PlanLst { get; set; }
+
+        public ObservableCollection<ContractNodeDTO>? NodeLst { get; set; }
+
         private ContractDetailCls? _ContractDetalle;
+
         public ContractDetailCls? ContractDetalle
         {
             get { return _ContractDetalle; }
@@ -33,6 +46,42 @@ namespace SpiWpf.Wpf.ViewModels
             get { return _IsLoading; }
             set { SetProperty(ref _IsLoading, value); }
         }
+
+        private bool _ExistNode;
+        public bool ExistNode
+        {
+            get { return _ExistNode; }
+            set { SetProperty(ref _ExistNode, value); }
+        }
+
+        private bool _ExistPlan;
+        public bool ExistPlan
+        {
+            get { return _ExistPlan; }
+            set { SetProperty(ref _ExistPlan, value); }
+        }
+
+        private bool _ExistServ;
+        public bool ExistServ
+        {
+            get { return _ExistServ; }
+            set { SetProperty(ref _ExistServ, value); }
+        }
+
+        private bool _ExistMac;
+        public bool ExistMac
+        {
+            get { return _ExistMac; }
+            set { SetProperty(ref _ExistMac, value); }
+        }
+
+        private bool _ExistIp;
+        public bool ExistIp
+        {
+            get { return _ExistIp; }
+            set { SetProperty(ref _ExistIp, value); }
+        }
+
 
         private bool _ExistQueues;
         public bool ExistQueues
@@ -52,6 +101,11 @@ namespace SpiWpf.Wpf.ViewModels
         {
             QueLst = new ObservableCollection<QueuesInfoCls>();
             BinLst = new ObservableCollection<BindingInfoCls>();
+            IpLst = new ObservableCollection<ContractIpDTO>();
+            MacLst = new ObservableCollection<ContractMacDTO>();
+            ServLst = new ObservableCollection<ContractServDTO>();
+            PlanLst = new ObservableCollection<ContractPlanDTO>();
+            NodeLst = new ObservableCollection<ContractNodeDTO>();
             ContractDetalle = new ContractDetailCls();
         }
 
@@ -100,6 +154,123 @@ namespace SpiWpf.Wpf.ViewModels
             viewModel!.LoadContracts();
         }
 
+        [RelayCommand]
+        public void DeleteContractIp(int idcontractIp)
+        {
+
+        }
+
+        [RelayCommand]
+        public void DeleteContractMac(int idcontractMac)
+        {
+
+        }
+
+        [RelayCommand]
+        public void DeleteContractServ(int idcontractServ)
+        {
+
+        }
+
+        [RelayCommand]
+        public void DeleteContractPlan(int idcontractPlan)
+        {
+
+        }
+
+        [RelayCommand]
+        public void DeleteContractNode(int idcontractPlan)
+        {
+
+        }
+
+        [RelayCommand]
+        public async Task PingToNode(string nodoIp)
+        {
+            IsLoading = true;
+
+            if (nodoIp != null)
+            {
+                Ping ping = new();
+                PingReply reply = await ping.SendPingAsync(nodoIp, 3000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    // El ping fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Ping a {nodoIp} exitoso. Tiempo de respuesta: {reply.RoundtripTime} ms.", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    // El ping no fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Fallo el ping a {nodoIp}. Estado: {reply.Status}", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            IsLoading = false;
+            MessageBox.Show($"Erro en los Datos para hacer Ping al Nodo", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        [RelayCommand]
+        public async Task PingToIpClient(string ipCliente)
+        {
+            IsLoading = true;
+
+            if (ipCliente != null)
+            {
+                Ping ping = new();
+                PingReply reply = await ping.SendPingAsync(ipCliente, 3000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    // El ping fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Ping a {ipCliente} exitoso. Tiempo de respuesta: {reply.RoundtripTime} ms.", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    // El ping no fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Fallo el ping a {ipCliente}. Estado: {reply.Status}", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            IsLoading = false;
+            MessageBox.Show($"Erro en los Datos para hacer Ping al Cliente", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        [RelayCommand]
+        public async Task PingToServer(string servidorIp)
+        {
+            IsLoading = true;
+
+            if (servidorIp != null)
+            {
+                Ping ping = new();
+                PingReply reply = await ping.SendPingAsync(servidorIp, 3000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    // El ping fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Ping a {servidorIp} exitoso. Tiempo de respuesta: {reply.RoundtripTime} ms.", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    // El ping no fue exitoso
+                    IsLoading = false;
+                    MessageBox.Show($"Fallo el ping a {servidorIp}. Estado: {reply.Status}", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            IsLoading = false;
+            MessageBox.Show($"Erro en los Datos para hacer Ping al Servidor", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
         public async void LoadContractDetails()
         {
             IsLoading = true;
@@ -117,7 +288,11 @@ namespace SpiWpf.Wpf.ViewModels
 
             LoadQueueInfo();
             LoadBindInfo();
-
+            LoadIpInfo();
+            LoadMacInfo();
+            LoadServInfo();
+            LoadPlanInfo();
+            LoadNodeInfo();
             IsLoading = false;
 
             return;
@@ -169,6 +344,136 @@ namespace SpiWpf.Wpf.ViewModels
                 foreach (var item in listaBin!)
                 {
                     BinLst!.Add(item);
+                }
+            }
+
+            return;
+        }
+
+        public async void LoadIpInfo()
+        {
+
+            //Vamos a verificar si la empresa usa HotSpot para hacer suspension en Mikrotik
+            var responseHttp = await Repository.Get<List<ContractIpDTO>>($"/api/contracts/ContracIpCliente/{DatoPrueba}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            List<ContractIpDTO> listaIp = responseHttp.Response;
+            ExistIp = listaIp.Count > 0 ? true : false;
+            IpLst?.Clear();
+            if (listaIp != null || listaIp!.Count > 0)
+            {
+                foreach (var item in listaIp!)
+                {
+                    IpLst!.Add(item);
+                }
+            }
+
+            return;
+        }
+
+        public async void LoadMacInfo()
+        {
+
+            //Vamos a verificar si la empresa usa HotSpot para hacer suspension en Mikrotik
+            var responseHttp = await Repository.Get<List<ContractMacDTO>>($"/api/contracts/ContracMacCliente/{DatoPrueba}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            List<ContractMacDTO> listaMac = responseHttp.Response;
+            ExistMac = listaMac.Count > 0 ? true : false;
+            MacLst?.Clear();
+            if (listaMac != null || listaMac!.Count > 0)
+            {
+                foreach (var item in listaMac!)
+                {
+                    MacLst!.Add(item);
+                }
+            }
+
+            return;
+        }
+
+        public async void LoadServInfo()
+        {
+
+            //Vamos a verificar si la empresa usa HotSpot para hacer suspension en Mikrotik
+            var responseHttp = await Repository.Get<List<ContractServDTO>>($"/api/contracts/ContracServCliente/{DatoPrueba}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            List<ContractServDTO> listaServ = responseHttp.Response;
+            ExistServ = listaServ.Count > 0 ? true : false;
+            ServLst?.Clear();
+            if (listaServ != null || listaServ!.Count > 0)
+            {
+                foreach (var item in listaServ!)
+                {
+                    ServLst!.Add(item);
+                }
+            }
+
+            return;
+        }
+
+        public async void LoadPlanInfo()
+        {
+
+            //Vamos a verificar si la empresa usa HotSpot para hacer suspension en Mikrotik
+            var responseHttp = await Repository.Get<List<ContractPlanDTO>>($"/api/contracts/ContracPlanCliente/{DatoPrueba}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            List<ContractPlanDTO> listaPlan = responseHttp.Response;
+            ExistPlan = listaPlan.Count > 0 ? true : false;
+            PlanLst?.Clear();
+            if (listaPlan != null || listaPlan!.Count > 0)
+            {
+                foreach (var item in listaPlan!)
+                {
+                    PlanLst!.Add(item);
+                }
+            }
+
+            return;
+        }
+
+        public async void LoadNodeInfo()
+        {
+
+            //Vamos a verificar si la empresa usa HotSpot para hacer suspension en Mikrotik
+            var responseHttp = await Repository.Get<List<ContractNodeDTO>>($"/api/contracts/ContracNodeCliente/{DatoPrueba}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            List<ContractNodeDTO> listaNode = responseHttp.Response;
+            ExistNode = listaNode.Count > 0 ? true : false;
+            NodeLst?.Clear();
+            if (listaNode != null || listaNode!.Count > 0)
+            {
+                foreach (var item in listaNode!)
+                {
+                    NodeLst!.Add(item);
                 }
             }
 

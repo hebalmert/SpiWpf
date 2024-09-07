@@ -315,7 +315,7 @@
         <Setter Property="Template" >
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5" BorderThickness="1" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5" BorderThickness="2" CornerRadius="5">
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -353,8 +353,8 @@
     <Style x:Key="gridButtonIconActive" TargetType="Icon:IconImage">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="DarkGreen"/>
-        <Setter Property="Width" Value="14" />
-        <Setter Property="Height" Value="14" />
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Height" Value="15" />
     </Style>
 
 
