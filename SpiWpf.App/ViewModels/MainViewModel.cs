@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Entities.DTOs;
-using System.Runtime.Serialization.DataContracts;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace SpiWpf.Wpf.ViewModels
 {

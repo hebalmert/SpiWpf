@@ -22,6 +22,9 @@ namespace SpiWpf.Wpf.ViewModels
             set { SetProperty(ref _IsLoading, value); }
         }
 
+        private CallPing _DoPing = new();
+
+
         public ServerViewModel()
         {
             ServerAPILst = new ObservableCollection<ServerAPI>();
@@ -144,34 +147,9 @@ namespace SpiWpf.Wpf.ViewModels
         }
 
         [RelayCommand]
-        public async Task PingMK(int Idserver)
+        public void PingMK(string Idserver)
         {
-            IsLoading = true;
-
-            var modelo = ListaServidores!.First(x => x.ServerId == Idserver);
-
-            if (modelo != null)
-            {
-                Ping ping = new();
-                PingReply reply = await ping.SendPingAsync(modelo.IpNetwork!, 3000);
-                if (reply.Status == IPStatus.Success)
-                {
-                    // El ping fue exitoso
-                    IsLoading = false;
-                    MessageBox.Show($"Ping a {modelo.IpNetwork} exitoso. Tiempo de respuesta: {reply.RoundtripTime} ms.", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-                else
-                {
-                    // El ping no fue exitoso
-                    IsLoading = false;
-                    MessageBox.Show($"Fallo el ping a {modelo.IpNetwork}. Estado: {reply.Status}", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-            IsLoading = false;
-            MessageBox.Show($"Erro en los Datos para hacer Ping al Servidor", "Respuesta Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
+            _DoPing.PingIp(Idserver);
         }
     }
 }

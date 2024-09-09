@@ -82,7 +82,7 @@
                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding ServerAPILst}" Margin="0,10,0,0">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Servidor" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="Servidor" IsReadOnly="True" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -95,17 +95,19 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Documento" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Telefono" Binding="{Binding MarkModelo}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Correo" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Ip Address" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="180"/>
+                        <DataGridTextColumn Header="Modelo" Binding="{Binding MarkModelo}" IsReadOnly="True" Width="180"/>
+                        <DataGridTextColumn Header="Zona" Binding="{Binding Zona}" IsReadOnly="True" Width="180"/>
                         <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.ConectMkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ServerId}">
+                                        <Button Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.ConectMkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                CommandParameter="{Binding ServerId}">
                                             <fa:IconImage Icon="Server" Style="{StaticResource gridButtonIconActive}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.PingMKCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ServerId}">
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.PingMKCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                CommandParameter="{Binding IpNetwork}">
                                             <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}"/>
                                         </Button>
                                         <Button Margin="5,0,0,0" Style="{StaticResource gridEditButton}">

@@ -12,6 +12,12 @@
 
         public string NameServidor { get; set; } = null!;
 
+        public string Usuario { get; set; } = null!;
+
+        public string Clave { get; set; } = null!;
+
+        public int ApiPort { get; set; }
+
         public bool IsCreado { get; set; }
     }
 }

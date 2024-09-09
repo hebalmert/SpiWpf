@@ -4,6 +4,8 @@
     {
         public int ContractId { get; set; }
 
+        public int ServerId { get; set; }
+
         public int ContractBindId { get; set; }
 
         public string Servidor { get; set; } = null!;
