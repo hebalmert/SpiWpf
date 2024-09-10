@@ -80,7 +80,7 @@
                  CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
                      ItemsSource="{Binding NodeAPILst}" Margin="0,10,0,0">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Nodo" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="Nodo" IsReadOnly="True" Width="250">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -93,13 +93,17 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="IP" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Modelo" Binding="{Binding MarkModel}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Zona" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
-                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
+                        <DataGridTextColumn Header="IP" Binding="{Binding IpNetwork}" IsReadOnly="True" Width="200"/>
+                        <DataGridTextColumn Header="Modelo" Binding="{Binding MarkModel}" IsReadOnly="True" Width="200"/>
+                        <DataGridTextColumn Header="Zona" Binding="{Binding Zona}" IsReadOnly="True" Width="280"/>
+                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridActiveButton}" Command="{Binding DataContext.PingMKCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                CommandParameter="{Binding IpNetwork}">
+                                            <fa:IconImage Icon="NetworkWired" Style="{StaticResource gridButtonIconActive}"/>
+                                        </Button>
                                         <Button Style="{StaticResource gridEditButton}">
                                             <fa:IconImage Icon="Pencil" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>

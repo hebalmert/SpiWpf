@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SpiWpf.Data;
 using SpiWpf.Entities.Models;
+using SpiWpf.Wpf.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace SpiWpf.Wpf.ViewModels
 {
-    public class NodeViewModel : ObservableObject
+    public partial class NodeViewModel : ObservableObject
     {
         public ObservableCollection<NodeAPI>? NodeAPILst { get; set; }
 
@@ -18,6 +20,8 @@ namespace SpiWpf.Wpf.ViewModels
             get { return _IsLoading; }
             set { SetProperty(ref _IsLoading, value); }
         }
+
+        private CallPing _DoPing = new();
 
         public NodeViewModel()
         {
@@ -78,6 +82,12 @@ namespace SpiWpf.Wpf.ViewModels
                     }
                 }
             }
+        }
+
+        [RelayCommand]
+        public void PingMK(string IdNode)
+        {
+            _DoPing.PingIp(IdNode);
         }
     }
 }

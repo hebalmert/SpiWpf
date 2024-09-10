@@ -80,7 +80,7 @@
                  CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
                      ItemsSource="{Binding ContractCutsLst}" Margin="0,10,0,0">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Fecha" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="Fecha" IsReadOnly="True" Width="190">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -93,11 +93,11 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Mes" Binding="{Binding Mes}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Año" Binding="{Binding YearNumber}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Mes" Binding="{Binding Mes}" IsReadOnly="True" Width="160"/>
+                        <DataGridTextColumn Header="Año" Binding="{Binding YearNumber}" IsReadOnly="True" Width="150"/>
                         
                         <!-- Aquí se cambia la columna de texto a una columna con un CheckBox -->
-                        <DataGridTemplateColumn Header="Creado" Width="*">
+                        <DataGridTemplateColumn Header="Creado" Width="160">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding Creado}" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -105,7 +105,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Fecha" Binding="{Binding DateCreado, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding DateCreado, StringFormat={}{0:dd-MM-yyyy}}" IsReadOnly="True" Width="189"/>
                         <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

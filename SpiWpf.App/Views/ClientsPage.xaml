@@ -82,7 +82,7 @@
                       CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="membersDataGrid" Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding ClientAPILst}" Margin="0,10,0,0">
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Cliente" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="Cliente" IsReadOnly="True" Width="280">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -95,10 +95,10 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Documento" Binding="{Binding Document}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Telefono" Binding="{Binding PhoneNumber}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Documento" Binding="{Binding Document}" IsReadOnly="True" Width="180"/>
+                        <DataGridTextColumn Header="Telefono" Binding="{Binding PhoneNumber}" IsReadOnly="True" Width="180"/>
                         <DataGridTextColumn Header="Correo" Binding="{Binding UserName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn Header="" IsReadOnly="True" Width="250">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

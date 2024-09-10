@@ -17,7 +17,7 @@ namespace SpiWpf.Wpf.ViewModels
 
         public MainViewModel()
         {
-
+            CurrentChildView = new HomeViewModel();
         }
 
         [RelayCommand]
