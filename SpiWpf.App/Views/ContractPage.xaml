@@ -93,11 +93,11 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Cliente" Binding="{Binding FullName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding FullName}" IsReadOnly="True" Width="290"/>
                         <DataGridTextColumn Header="Contratista" Binding="{Binding Contratista}" IsReadOnly="True" Width="200"/>
-                        <DataGridTextColumn Header="zona" Binding="{Binding Zona}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="zona" Binding="{Binding Zona}" IsReadOnly="True" Width="250"/>
                         
-                        <DataGridTemplateColumn Header="Estado" Width="150" IsReadOnly="True">
+                        <DataGridTemplateColumn Header="Estado" Width="180" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding StateType}" Foreground="{Binding Color}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>

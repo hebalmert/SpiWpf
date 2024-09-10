@@ -1026,7 +1026,7 @@
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteCutControlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractQueuesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                                                                     CommandParameter="{Binding ContractQueId}">
                                                                     <fa:IconImage Icon="TrashCan" Style="{StaticResource gridButtonIcon}" />
                                                                     <Button.Style>
@@ -1150,7 +1150,7 @@
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                                                 <Button Style="{StaticResource gridEditButton}" Command="{Binding DataContext.EditContractBindingCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                                    CommandParameter="{Binding ContractBindId}">
+                                                                    CommandParameter="{Binding ContractBindId}" Visibility="Hidden">
                                                                     <fa:IconImage Icon="Edit" Style="{StaticResource gridButtonIcon}"/>
                                                                 </Button>
                                                                 <Button Margin="5 0 0 0" Command="{Binding DataContext.DeleteContractBindingCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
@@ -1185,9 +1185,9 @@
 
                 </StackPanel>
                 <!-- Superposición del ProgressBar -->
-                <!--<Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+                <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
                     <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>-->
+                </Grid>
 
                 <!-- Popup para el ListBox -->
                 <Popup PlacementTarget="{Binding ElementName=txtCliente}" 

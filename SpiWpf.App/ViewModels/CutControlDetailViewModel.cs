@@ -86,7 +86,7 @@ namespace SpiWpf.Wpf.ViewModels
             //Terminada el Check Usa HotSpot para cortes en Mikrotik
 
             //Recibimos La lista de Clientes a Suspender
-            var responseHttp2 = await Repository.Get<List<ContractToCutCls>>("/api/cutcontrol/checkHotSpot");
+            var responseHttp2 = await Repository.Post<ContractCutAPI,List<ContractToCutCls>>("/api/cutcontrol/ContractToCuts", ContractCut!);
             if (responseHttp2.Error)
             {
                 IsLoading = false;
@@ -105,6 +105,7 @@ namespace SpiWpf.Wpf.ViewModels
             DateTime unoMes = (DateTime)ContractCut!.DateStr!;
             DateTime UltimoMes = (DateTime)ContractCut!.DateEnd!;
             string MesCurrent = DateTime.Now.ToString("MMMM", cult).ToUpper();
+            int MesCurrentNum = DateTime.Now.Month;
             var YearActual = Convert.ToInt32(DateTime.Now.Year);
 
 
@@ -123,7 +124,7 @@ namespace SpiWpf.Wpf.ViewModels
                 foreach (var item in datoServer)
                 {
                     //Verificamos si el Contrato tiene alguna exoneracion
-                    var responseHttp3 = await Repository.Get<bool>($"/api/preexonerade/exonerados/{item.idContrato}/{YearActual}/{MesCurrent}");
+                    var responseHttp3 = await Repository.Get<bool>($"/api/preexonerade/exonerados/{item.idContrato}/{YearActual}/{MesCurrentNum}");
                     if (responseHttp3.Error)
                     {
                         IsLoading = false;
@@ -200,14 +201,14 @@ namespace SpiWpf.Wpf.ViewModels
 
 
                     //Actualizamos el estatus en ContractBind para que aparezca suspendido
-                    var responseHttp6 = await Repository.Post<ContractCutDetail>($"/api/cutcontrol/toNewCutDetails", nuevodetalle);
-                    if (responseHttp6.Error)
-                    {
-                        IsLoading = false;
-                        var msgerror = await responseHttp6.GetErrorMessageAsync();
-                        MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    //var responseHttp6 = await Repository.Get<bool>($"/api/contracts/updateBind/{item.idContrato}");
+                    //if (responseHttp6.Error)
+                    //{
+                    //    IsLoading = false;
+                    //    var msgerror = await responseHttp6.GetErrorMessageAsync();
+                    //    MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //    return;
+                    //}
 
                     //Actualizamos el estatus en ContractBind para que aparezca suspendido
                     //var updateContractBind = await _context.ContractBinds.FirstOrDefaultAsync(x => x.ContractId == item.idContrato);
@@ -267,6 +268,11 @@ namespace SpiWpf.Wpf.ViewModels
                 return;
             }
 
+            IsLoading = false;
+
+            var mainWindow = Application.Current.MainWindow as MainPage;
+            var viewModel = mainWindow!.DataContext as MainViewModel;
+            viewModel!.LoadCutControl();
             //var UpContractCut = await _context.ContractCuts.FirstOrDefaultAsync(c => c.ContractCutId == id);
             //UpContractCut!.Creado = true;
             //UpContractCut.DateCreado = DateTime.Now;

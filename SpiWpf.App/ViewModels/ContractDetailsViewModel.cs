@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic.ApplicationServices;
 using SpiWpf.Data;
 using SpiWpf.Entities.DTOs;
 using SpiWpf.Entities.Enum;
@@ -8,12 +7,7 @@ using SpiWpf.Entities.Models;
 using SpiWpf.Wpf.Helpers;
 using SpiWpf.Wpf.Views;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Resources;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SpiWpf.Wpf.ViewModels
 {
@@ -203,7 +197,7 @@ namespace SpiWpf.Wpf.ViewModels
                 }
 
                 List<CantClientDTO> CantCLientes = new();
-                var responseHttp2 = await Repository.Get<List<CantClientDTO>>($"/api/contracts/CantidadClientes/{PlanLst.FirstOrDefault()!.PlanId}/{ServLst.FirstOrDefault()!.ServerId}/{ContractDetalle.ContractId}");
+                var responseHttp2 = await Repository.Get<List<CantClientDTO>>($"/api/contracts/CantidadClientes/{PlanLst.FirstOrDefault()!.PlanId}/{ServLst.FirstOrDefault()!.ServerId}");
                 if (responseHttp2.Error)
                 {
                     IsLoading = false;
@@ -455,6 +449,212 @@ namespace SpiWpf.Wpf.ViewModels
         }
 
         [RelayCommand]
+        public async Task DeleteContractQueues(int idcontractQueue)
+        {
+            IsLoading = true;
+
+            var responseHttp = await Repository.Get<ContractQueDTO>($"/api/contracts/DatoContractQue/{idcontractQueue}");
+            if (responseHttp.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var NuevoDato = responseHttp.Response;
+
+            var conCliente = ContractDetalle;
+            var conServer = ServLst;
+            var conPlan = PlanLst;
+            var conIpClient = IpLst;
+
+            var dato = new
+            {
+                nameserver = NuevoDato.ServerName,
+                ipservidor = NuevoDato.IpServer,
+                us = NuevoDato.Usuario,
+                pss = NuevoDato.Clave,
+                puerto = NuevoDato.Puerto,
+                velocidad = $"{NuevoDato.VelocidadUp}/{NuevoDato.VelocidadDown}",
+                ipcliente = NuevoDato.IpCliente,
+                nomCliente = $"{ContractDetalle!.FullName} - ({ContractDetalle.ControlContrato})",
+                nomPlan = NuevoDato.PlanName
+            };
+
+            QueueParentDTO anyQueueParent = new();
+            var responseHttp2 = await Repository.Get<QueueParentDTO>($"/api/contracts/AnyQueParent/{NuevoDato.ServerId}/{NuevoDato.PlanId}");
+            if (responseHttp2.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp2.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            anyQueueParent = responseHttp2.Response;
+            if (anyQueueParent.QueueParentId == 0 && anyQueueParent.ServerId == 0 && anyQueueParent.PlanId == 0)
+            {
+                anyQueueParent = null!;
+            }
+
+            List<CantClientDTO> CantCLientes = new();
+            var responseHttp3 = await Repository.Get<List<CantClientDTO>>($"/api/contracts/CantidadClientesToDelete/{NuevoDato.PlanId}/{NuevoDato.ServerId}/{idcontractQueue}");
+            if (responseHttp3.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp2.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            CantCLientes = responseHttp3.Response;
+
+            int cantQueueClients = CantCLientes.Count;
+
+            string ListaClientsIP = string.Empty;
+            if (cantQueueClients == 0)
+            {
+                ListaClientsIP = "0.0.0.0/0";
+            }
+            if (cantQueueClients > 0)
+            {
+                foreach (var item in CantCLientes)
+                {
+                    ListaClientsIP += item.ips + ", ";
+                }
+                ListaClientsIP = ListaClientsIP.TrimEnd(',', ' ');
+            }
+
+            //Vamos a cargar en nombre del PCQ en las variables para poderlas agregar a la Mikrotik
+            string PcqDown = string.Empty;
+            string PcqUp = string.Empty;
+
+            //calculamos todo en kbps para poder trabajar el Parent mejor
+            int UpSpeed = 0;
+            int DownSpeed = 0;
+            UpSpeed = NuevoDato.SpeedUpType == SpeedUpType.M ? NuevoDato.SpeedUp * 1024 : NuevoDato.SpeedUp;
+            DownSpeed = NuevoDato.SpeedDownType == SpeedDownType.M ? NuevoDato.SpeedDown * 1024 : NuevoDato.SpeedUp;
+            int UpSpeedLimitAt = 0;
+            int DownSpeedLimitAt = 0;
+            if (NuevoDato.TasaReuso == 0)
+            {
+                UpSpeedLimitAt = (UpSpeed / 1);
+                DownSpeedLimitAt = (DownSpeed / 1);
+            }
+            else
+            {
+                UpSpeedLimitAt = (UpSpeed / NuevoDato.TasaReuso);
+                DownSpeedLimitAt = (DownSpeed / NuevoDato.TasaReuso);
+            }
+            int UpSpeedFather = cantQueueClients < NuevoDato.TasaReuso + 1 ? UpSpeed : (UpSpeedLimitAt * (cantQueueClients));
+            int DownSpeedFather = cantQueueClients < NuevoDato.TasaReuso + 1 ? DownSpeed : (DownSpeedLimitAt * (cantQueueClients));
+
+            List<QueueTypeDTO> quetype = new();
+            var responseHttp4 = await Repository.Get<List<QueueTypeDTO>>($"/api/contracts/QueTypes");
+            if (responseHttp4.Error)
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp4.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            quetype = responseHttp4.Response;
+
+            PcqDown = quetype.Where(x => x.Down == true).Select(x => x.TypeName).FirstOrDefault()!;
+            PcqUp = quetype.Where(x => x.Up == true).Select(x => x.TypeName).FirstOrDefault()!;
+
+            string nomQueues = $"{PcqUp}/{PcqDown}";
+            string nomParent = $"Parent {NuevoDato.PlanName} 1 a {NuevoDato.TasaReuso}";
+
+            //Se hace con conexion a la Mikroti y se deja abierto
+            ////////////////////////////////////////////////////////////
+            MK mikrotik = new MK(NuevoDato.IpServer!, NuevoDato.Puerto);
+            if (!mikrotik.Login(NuevoDato.Usuario!, NuevoDato.Clave!))
+            {
+                IsLoading = false;
+                var msgerror = await responseHttp4.GetErrorMessageAsync();
+                MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            mikrotik.Send("/queue/simple/remove");
+            mikrotik.Send("=.id=" + NuevoDato.MikrotikId, true);
+
+            int total = 0;
+            int rest = 0;
+            string idmk;
+
+            foreach (var item in mikrotik.Read())
+            {
+                idmk = item;
+                total = idmk.Length;
+                rest = total - 10;
+            }
+
+            //Se aplica cuando existe Parent, pero tiene por lo menos un Cliente asignado.
+            if (anyQueueParent != null && ListaClientsIP != "0.0.0.0/0")
+            {
+                mikrotik.Send("/queue/simple/set");
+                mikrotik.Send("=.id=" + anyQueueParent!.MkId);
+                mikrotik.Send("=limit-at=" + $"{UpSpeedFather}k/{DownSpeedFather}k");
+                mikrotik.Send("=max-limit=" + $"{UpSpeedFather}k/{DownSpeedFather}k");
+                mikrotik.Send("=target=" + ListaClientsIP);
+                mikrotik.Send("/queue/simple/print", true);
+                foreach (var item in mikrotik.Read())
+                {
+                    idmk = item;
+                    total = idmk.Length;
+                    rest = total - 10;
+                }
+
+                anyQueueParent.Down = $"{DownSpeed}k";
+                anyQueueParent.Up = $"{UpSpeed}k";
+
+                var responseHttp5 = await Repository.Put<QueueParentDTO>($"/api/contracts/UpdateAnyQueueParent", anyQueueParent);
+                if (responseHttp5.Error)
+                {
+                    IsLoading = false;
+                    var msgerror = await responseHttp5.GetErrorMessageAsync();
+                    MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            //Fin Si existe algun anyQueuesParent
+
+            //Se aplica cuando existe Parent, pero queda sin ningun Cliente asignado.
+            if (anyQueueParent != null && ListaClientsIP == "0.0.0.0/0")
+            {
+                mikrotik.Send("/queue/simple/remove");
+                mikrotik.Send("=.id=" + anyQueueParent!.MkId, true);
+
+                foreach (var item in mikrotik.Read())
+                {
+                    idmk = item;
+                    total = idmk.Length;
+                    rest = total - 10;
+                }
+                var responseHttp6 = await Repository.Delete($"/api/contracts/DeleteAnyQueueParent/{anyQueueParent.QueueParentId}");
+                if (responseHttp6.Error)
+                {
+                    IsLoading = false;
+                    var msgerror = await responseHttp6.GetErrorMessageAsync();
+                    MessageBox.Show($"{msgerror}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                //_context.Remove(anyQueueParent);
+                //await _context.SaveChangesAsync();
+            }
+            //Fin Si existe algun anyQueuesParent
+
+
+            mikrotik.Close();
+            ///////////////////////////////////////////////////////////////////////////////////
+            /// 
+
+            LoadQueueInfo();
+            IsLoading = false;
+        }
+
+
+        [RelayCommand]
         public async Task NewBinding()
         {
             if (IpLst!.Count == 1 && MacLst!.Count == 1 && ServLst!.Count == 1 && PlanLst!.Count == 1)
@@ -547,32 +747,34 @@ namespace SpiWpf.Wpf.ViewModels
         [RelayCommand]
         public void DeleteContractIp(int idcontractIp)
         {
-
+            return;
         }
 
         [RelayCommand]
         public void DeleteContractMac(int idcontractMac)
         {
-
+            return;
         }
 
         [RelayCommand]
         public void DeleteContractServ(int idcontractServ)
         {
-
+            return;
         }
 
         [RelayCommand]
         public void DeleteContractPlan(int idcontractPlan)
         {
-
+            return;
         }
 
         [RelayCommand]
         public void DeleteContractNode(int idcontractPlan)
         {
-
+            return;
         }
+
+
 
         [RelayCommand]
         public async Task DeleteContractBinding(int idContractBind)
