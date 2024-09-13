@@ -95,9 +95,11 @@ namespace SpiWpf.Wpf.ViewModels
 
             //Convertimos el List a un ObservableCollection
             ListaContractCut = responseHttp.Response;
-            if (ListaContractCut != null || ListaContractCut!.Count > 0)
+            List<ContractCutAPI> NuevaLista = ListaContractCut.OrderByDescending(x => x.DateCut).ToList();
+
+            if (NuevaLista != null || NuevaLista!.Count > 0)
             {
-                foreach (var item in ListaContractCut)
+                foreach (var item in NuevaLista)
                 {
                     ContractCutsLst!.Add(item);
                 }

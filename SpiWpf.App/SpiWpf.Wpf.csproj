@@ -13,6 +13,7 @@
     <None Remove="Images\loglock.png" />
     <None Remove="Images\logmail.png" />
     <None Remove="Images\logowpf128.png" />
+    <None Remove="Images\nexxtlogoico.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,7 @@
     <Resource Include="Images\loglock.png" />
     <Resource Include="Images\logmail.png" />
     <Resource Include="Images\logowpf128.png" />
+    <Resource Include="Images\nexxtlogoico.ico" />
   </ItemGroup>
 
 </Project>

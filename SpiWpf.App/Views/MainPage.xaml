@@ -13,7 +13,9 @@
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Icon="/Images/nexxtlogoico.ico">
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
             <local:HomePage/>
@@ -129,6 +131,12 @@
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UsersRays" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Suspendidos" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False" Command="{Binding LoadCutControlCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="UsersSlash" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Suspension General" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}" Tag="{StaticResource color4}" IsChecked="False" Command="{Binding LoadCutControlCommand}">

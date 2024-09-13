@@ -59,7 +59,9 @@ namespace SpiWpf.Wpf.ViewModels
             }
 
             //Convertimos el List a un ObservableCollection
-            ListaSuspended = responseHttp.Response;
+            List<SuspendedAPI> NuevaLista = responseHttp.Response;
+            ListaSuspended = NuevaLista.OrderByDescending(x=> x.DateSuspended).ThenBy(x=> x.NombreCliente).ToList();
+
             if (ListaSuspended != null || ListaSuspended!.Count > 0)
             {
                 foreach (var item in ListaSuspended)

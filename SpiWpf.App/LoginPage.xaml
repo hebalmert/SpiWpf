@@ -14,7 +14,8 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
-        Background="Transparent" AllowsTransparency="True">
+        Background="Transparent" AllowsTransparency="True"
+        Icon="/Images/nexxtlogoico.ico">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
@@ -39,7 +40,7 @@
                 <Border.Background>
                     <LinearGradientBrush StartPoint="1,2" EndPoint="1,0">
                         <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.5"/>
+                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.25"/>
                         <GradientStop Color="Transparent" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
@@ -56,33 +57,9 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="Acceso SPI - Log In" Foreground="WhiteSmoke" FontSize="12" FontStretch="Condensed"
-                       VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    <Button Grid.Column="1" x:Name="btnMinimize"  BorderThickness="0" Content="-" Foreground="White"
-                        Cursor="Hand" Click="btnMinimize_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="DarkBlue"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#0B37B6"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="20" Height="20"
-                                        CornerRadius="9"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Grid.Column="2" x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
-                        Cursor="Hand" Click="btnClose_Click">
+
+                    <Button Grid.Column="1" x:Name="btnClose" BorderThickness="0" Content="X" Foreground="White"
+                        Cursor="Hand" Click="btnClose_Click" Grid.ColumnSpan="3" Margin="16,4,4,464" Grid.RowSpan="2">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="DarkGreen"/>
@@ -95,7 +72,7 @@
                         </Button.Style>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="20" Height="20"
+                                <Border Width="30" Height="30"
                                         CornerRadius="9"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
@@ -112,13 +89,13 @@
 
                         <TextBlock Text="Nexxtplanet"
                                Foreground="White"
-                               FontSize="25"
+                               FontSize="28"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"/>
                         <TextBlock Text="Sistema Proveedores Internet - SPI"
                                Foreground="LightGray"
-                               FontSize="12"
+                               FontSize="14"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                TextWrapping="Wrap"
@@ -207,12 +184,12 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
                             <TextBlock Text="Forgot Password?"
-                               Foreground="DarkGray"
+                               Foreground="LightBlue"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"/>
                             <TextBlock Text="Reset"
-                               Foreground="White"
+                               Foreground="WhiteSmoke"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -227,9 +204,9 @@
             </Border>
 
             <!-- Superposición del ProgressBar -->
-            <Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
+            <!--<Grid Background="#80000000" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibility}}">
                 <ProgressBar IsIndeterminate="True" Width="200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
+            </Grid>-->
         </Grid>
     </Border>
 </Window>

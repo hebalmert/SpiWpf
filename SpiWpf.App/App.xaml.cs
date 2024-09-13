@@ -27,7 +27,7 @@ namespace SpiWpf.App
                 {
                     MainWindowInstance = new MainPage();
                     MainWindowInstance.Show();
-                    LoginPage.Close();
+                    LoginPage.Hide();
                 }
             };
         }
