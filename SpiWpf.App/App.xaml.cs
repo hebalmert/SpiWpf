@@ -14,7 +14,7 @@ namespace SpiWpf.App
         public App()
         {
             InitializeComponent();
-            Application.Current.Properties["urlBase"] = "https://spi.nexxtplanet.net";
+            Application.Current.Properties["urlBase"] = "https://tupagina.com";
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
